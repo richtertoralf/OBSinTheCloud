@@ -7,8 +7,6 @@ Intel Xeon, CX51, 8VCPU´s, 32 GB RAM, 240 GB Disk Lokal, 35,58 Euro monatlich
 mit Ubuntu 20.04  
 
 8 vCPUs müssten für für 1920x1080p-Streaming und -Aufzeichnung funktionieren  
-
-Das unten beschriebene Setup habe ich auf Intel-basierten VMs getestet.
  
 Zuerst wird das Repository aktualisiert, der Video-Dummy-Treiber und das X-Server-System installiert und ein neuer Benutzer zur Verwendung in der GUI wie folgt erstellt:
 
