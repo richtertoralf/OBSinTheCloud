@@ -2,29 +2,29 @@
 OBS Studio in the cloud
 
 
-Bei Hetzner einen virtuellen Server mieten
-Intel Xeon, CX51, 8VCPU´s, 32 GB RAM, 240 GB Disk Lokal, 35,58 Euro monatlich
-mit Ubuntu 20.04
+Bei Hetzner einen virtuellen Server mieten  
+Intel Xeon, CX51, 8VCPU´s, 32 GB RAM, 240 GB Disk Lokal, 35,58 Euro monatlich  
+mit Ubuntu 20.04  
 
-8 vCPUs müssten für für 1920x1080p-Streaming und -Aufzeichnung funktionieren.
+8 vCPUs müssten für für 1920x1080p-Streaming und -Aufzeichnung funktionieren  
 
-Das unten beschriebene Setup habe ich auf Intel-basierten VMs getestet, während der X-Server sich hartnäckig weigert, in ihren AMD-basierten VMs zu arbeiten.
-
-Und hier ist die Reihenfolge der Paketinstallationen in der VM, die das System zum Leben erweckt.   
+Das unten beschriebene Setup habe ich auf Intel-basierten VMs getestet.
+ 
 Zuerst wird das Repository aktualisiert, der Video-Dummy-Treiber und das X-Server-System installiert und ein neuer Benutzer zur Verwendung in der GUI wie folgt erstellt:
 
 `apt update -y && apt upgrade -y`  
-Wenn du auf einem Headless-Server (also ohne angeschlossenen physischen Monitor) ein Dummy-Display benötigst, installierst du zuerst das Dummy-Treiberpaket:  
+ 
 `apt install xserver-xorg-video-dummy -y`  
 
-einen user 'cloud' anlegen, damit du nicht als 'root' arbeiten musst
+einen user 'cloud' anlegen, damit du nicht als 'root' arbeiten musst  
 `adduser cloud`  
-und ihm root Rechte geben / Root rights for the user
+und ihm root Rechte geben  
 `usermod -aG sudo cloud`  
 
-Der X-Server benötigt eine Konfigurationsdatei in /etc/X11/xorg.conf , die folgenden Inhalt haben sollte. Die in dieser Konfigurationsdatei verwendete Modeline erstellt einen Monitor, der mit einer Bildwiederholfrequenz von genau 60 Hz läuft. Dies ist wichtig für OBS, um qualitativ hochwertige Aufnahmen von Videostreams zu erstellen!
+Der X-Server benötigt eine Konfigurationsdatei in /etc/X11/xorg.conf, die folgenden Inhalt haben sollte:  
+Die in dieser Konfigurationsdatei verwendete Modeline erstellt einen Monitor, der mit einer Bildwiederholfrequenz von genau 60 Hz läuft. Dies ist wichtig für OBS, um qualitativ hochwertige Aufnahmen von Videostreams zu erstellen!  
 
-nano /etc/X11/xorg.conf
+`nano /etc/X11/xorg.conf`    
 
 ```
 # This xorg configuration file is meant to be used
@@ -61,10 +61,10 @@ Section "Screen"
     EndSubSection
 EndSection
 ```
-Als nächstes konfigurieren und starten Sie den X-Server und brechen Sie mit STRG-C ab, sobald die Konfiguration geschrieben wurde und die Ausgabe nach einer Sekunde stoppt:
+Als nächstes konfigurieren und startest du den X-Server und brichst ihn Sie mit STRG-C ab, sobald die Konfiguration geschrieben wurde und die Ausgabe nach kurzer Zeit stoppt:
 
 `X -config /etc/X11/xorg.conf`  
-Jetzt müsste so eine Anzeige kommen:
+Jetzt müsste so eine Anzeige kommen:  
 ```
 X.Org X Server 1.20.11
 X Protocol Version 11, Revision 0
@@ -84,30 +84,29 @@ Markers: (--) probed, (**) from config file, (==) default setting,
 (==) Using system config directory "/usr/share/X11/xorg.conf.d"
 (II) Server terminated successfully (0). Closing log file.
 ```
-Identifizieren der Displaynummer
-Wenn kein anderer X-Server läuft, wird standardmäßig die Anzeigenummer 0 verwendet. Suche nach dieser Zeile, um die verwendete Anzeige zu identifizieren:
-hier ist sie **(==) Log file: "/var/log/Xorg.0.log", Time: Fri Sep  3 19:12:00 2021**  
-In dieser Zeile  Xorg.0.logwird dir mitgeteilt, dass das Display 0 verwendet wird, während dir Xorg.1.log sagt, dass das Display 1 verwendet wird.
+**Identifizieren der Displaynummer**    
+Wenn kein anderer X-Server läuft, wird standardmäßig die Anzeigenummer 0 verwendet. Suche nach dieser Zeile, um die verwendete Anzeige zu identifizieren:  
+hier ist sie **(==) Log file: "/var/log/Xorg.0.log", Time: Fri Sep  3 19:12:00 2021**   
+In dieser Zeile  Xorg.0.logwird dir mitgeteilt, dass das Display 0 verwendet wird, während dir Xorg.1.log sagt, dass das Display 1 verwendet wird.  
 
-Jetzt fehlt noch die komplette GUI. Ich habe gnome ausgewählt:
+Jetzt fehlt noch die komplette GUI.    
 
 ```
 sudo apt install x11vnc gnome-shell ubuntu-gnome-desktop autocutsel gnome-core gnome-panel gnome-themes-standard gnome-settings-daemon metacity nautilus gnome-terminal dconf-editor gnome-tweaks yaru-theme-unity yaru-theme-gnome-shell yaru-theme-gtk yaru-theme-icon fonts-ubuntu tmux fonts-emojione
 ```
-Das dauert paar Minuten.
-Wenn die Installation fertig ist, den Rechner neu starten:
+Das dauert paar Minuten.  
+Wenn die Installation fertig ist, den Rechner neu starten:  
 `reboot`  
 
-Melde dich dann wieder als **roor** an.
+Melde dich dann wieder als **root** an.  
 Ermittle als nächstes die user-ID vom user 'cloud':  
 `id -u cloud`  
 Ergibt bei mir 1000  
 Verwende in der nächsten Zeile die Benutzer-ID von 'cloud' und   
-gibt bei der ersten Abfrage dann das von dir dem Benutzer 'cloud' gegebene Passwort und die richtige Display-Nummer z.B. 0 ein:
+gibt bei der ersten Abfrage dann das von dir dem Benutzer 'cloud' gegebene Passwort und die richtige Display-Nummer z.B. 0 ein:  
 'sudo x11vnc -auth /run/user/ 1000 /gdm/Xauthority -usepw -forever -repeat -display :0'  
-vnc Passwort: mortel95  (max. 8 Zeichen)
 
-folgende Fehlermeldung bekomme ich:
+folgende Fehlermeldung bekomme ich:  
 ```
 cloud@ubuntu-32gb-nbg1-1:~$ sudo x11vnc -auth /run/user/ 1000 /gdm/Xauthority -usepw -forever -repeat -display :0
 [sudo] password for cloud:
