@@ -110,10 +110,10 @@ Ausgabe:
 root        1061  1.8  0.2 1671784 69504 tty1    Sl+  12:23   0:00 /usr/lib/xorg/Xorg vt1 -displayfd 3 -auth /run/user/128/gdm/Xauthority -background none -noreset -keeptty -verbose 3
 root        1516  0.0  0.0   6432   664 pts/0    S+   12:23   0:00 grep --color=auto auth
 ``` 
-Du brauchst die Zahl zwischen /run/user/**xxx**/gdm/Xauthotity!
-Starte dann x11vnc
+Du brauchst die Zahl zwischen /run/user/**xxx**/gdm/Xauthotity!  
+Starte dann x11vnc  
 root@ubuntu-32gb-nbg1-1:~# `x11vnc -auth /run/user/**XXX**/gdm/Xauthority -usepw -forever -repeat -display :0`  
-Wenn alles klappt, erhältst du solche Meldungen:  :   
+Wenn alles klappt, erhältst du solche Meldungen:   
 
 ```
 04/09/2021 12:14:41 -usepw: found /root/.vnc/passwd
