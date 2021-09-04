@@ -102,21 +102,112 @@ Ermittle als nächstes die user-ID vom user 'cloud':
 Ergibt bei mir 1000  
 Verwende in der nächsten Zeile die Benutzer-ID von 'cloud' und   
 gibt bei der ersten Abfrage dann das von dir dem Benutzer 'cloud' gegebene Passwort und die richtige Display-Nummer z.B. 0 ein:  
-'sudo x11vnc -auth /run/user/ 1000 /gdm/Xauthority -usepw -forever -repeat -display :0'  
 
-folgende Fehlermeldung bekomme ich:  
+------------
+root@ubuntu-32gb-nbg1-1:~# id -u root
+0
+root@ubuntu-32gb-nbg1-1:~# id -u cloud
+1000
+
+root@ubuntu-32gb-nbg1-1:~# ps wwwwaux | grep auth
+root        1054  0.0  0.2 1672292 69544 tty1    Sl+  Sep03   0:01 /usr/lib/xorg/Xorg vt1 -displayfd 3 -auth /run/user/128/gdm/Xauthority -background none -noreset -keeptty -verbose 3
+root       11196  0.0  0.0   6432   736 pts/0    S+   12:19   0:00 grep --color=auto auth
+
+
+root@ubuntu-32gb-nbg1-1:~# x11vnc -auth /run/user/128/gdm/Xauthority -usepw -forever -repeat -display :0 
+
+folgende Meldungen bekomme ich:  
 ```
-cloud@ubuntu-32gb-nbg1-1:~$ sudo x11vnc -auth /run/user/ 1000 /gdm/Xauthority -usepw -forever -repeat -display :0
-[sudo] password for cloud:
-03/09/2021 20:20:54 passing arg to libvncserver: 1000
-03/09/2021 20:20:54 passing arg to libvncserver: /gdm/Xauthority
-03/09/2021 20:20:54 -usepw: found /root/.vnc/passwd
-03/09/2021 20:20:54 x11vnc version: 0.9.16 lastmod: 2019-01-05  pid: 1745
-No protocol specified
-03/09/2021 20:20:54 XOpenDisplay(":0") failed.
-03/09/2021 20:20:54 Trying again with XAUTHLOCALHOSTNAME=localhost ...
-No protocol specified
+root@ubuntu-32gb-nbg1-1:~# x11vnc -auth /run/user/128/gdm/Xauthority -usepw -forever -repeat -display :0
+04/09/2021 12:14:41 -usepw: found /root/.vnc/passwd
+04/09/2021 12:14:41 x11vnc version: 0.9.16 lastmod: 2019-01-05  pid: 11155
+04/09/2021 12:14:41 Using X display :0
+04/09/2021 12:14:41 rootwin: 0x50f reswin: 0x1400001 dpy: 0xb9710c30
+04/09/2021 12:14:41
+04/09/2021 12:14:41 ------------------ USEFUL INFORMATION ------------------
+04/09/2021 12:14:41 X DAMAGE available on display, using it for polling hints.
+04/09/2021 12:14:41   To disable this behavior use: '-noxdamage'
+04/09/2021 12:14:41
+04/09/2021 12:14:41   Most compositing window managers like 'compiz' or 'beryl'
+04/09/2021 12:14:41   cause X DAMAGE to fail, and so you may not see any screen
+04/09/2021 12:14:41   updates via VNC.  Either disable 'compiz' (recommended) or
+04/09/2021 12:14:41   supply the x11vnc '-noxdamage' command line option.
+04/09/2021 12:14:41
+04/09/2021 12:14:41 Wireframing: -wireframe mode is in effect for window moves.
+04/09/2021 12:14:41   If this yields undesired behavior (poor response, painting
+04/09/2021 12:14:41   errors, etc) it may be disabled:
+04/09/2021 12:14:41    - use '-nowf' to disable wireframing completely.
+04/09/2021 12:14:41    - use '-nowcr' to disable the Copy Rectangle after the
+04/09/2021 12:14:41      moved window is released in the new position.
+04/09/2021 12:14:41   Also see the -help entry for tuning parameters.
+04/09/2021 12:14:41   You can press 3 Alt_L's (Left "Alt" key) in a row to
+04/09/2021 12:14:41   repaint the screen, also see the -fixscreen option for
+04/09/2021 12:14:41   periodic repaints.
+04/09/2021 12:14:41
+04/09/2021 12:14:41 XFIXES available on display, resetting cursor mode
+04/09/2021 12:14:41   to: '-cursor most'.
+04/09/2021 12:14:41   to disable this behavior use: '-cursor arrow'
+04/09/2021 12:14:41   or '-noxfixes'.
+04/09/2021 12:14:41 using XFIXES for cursor drawing.
+04/09/2021 12:14:41 GrabServer control via XTEST.
+04/09/2021 12:14:41
+04/09/2021 12:14:41 Scroll Detection: -scrollcopyrect mode is in effect to
+04/09/2021 12:14:41   use RECORD extension to try to detect scrolling windows
+04/09/2021 12:14:41   (induced by either user keystroke or mouse input).
+04/09/2021 12:14:41   If this yields undesired behavior (poor response, painting
+04/09/2021 12:14:41   errors, etc) it may be disabled via: '-noscr'
+04/09/2021 12:14:41   Also see the -help entry for tuning parameters.
+04/09/2021 12:14:41   You can press 3 Alt_L's (Left "Alt" key) in a row to
+04/09/2021 12:14:41   repaint the screen, also see the -fixscreen option for
+04/09/2021 12:14:41   periodic repaints.
+04/09/2021 12:14:41
+04/09/2021 12:14:41 XKEYBOARD: number of keysyms per keycode 7 is greater
+04/09/2021 12:14:41   than 4 and 51 keysyms are mapped above 4.
+04/09/2021 12:14:41   Automatically switching to -xkb mode.
+04/09/2021 12:14:41   If this makes the key mapping worse you can
+04/09/2021 12:14:41   disable it with the "-noxkb" option.
+04/09/2021 12:14:41   Also, remember "-remap DEAD" for accenting characters.
+04/09/2021 12:14:41
+04/09/2021 12:14:41 X FBPM extension not supported.
+Xlib:  extension "DPMS" missing on display ":0".
+04/09/2021 12:14:41 X display is not capable of DPMS.
+04/09/2021 12:14:41 --------------------------------------------------------
+04/09/2021 12:14:41
+04/09/2021 12:14:41 Default visual ID: 0x21
+04/09/2021 12:14:41 Read initial data from X display into framebuffer.
+04/09/2021 12:14:41 initialize_screen: fb_depth/fb_bpp/fb_Bpl 24/32/7680
+04/09/2021 12:14:41
+04/09/2021 12:14:41 X display :0 is 32bpp depth=24 true color
+04/09/2021 12:14:41
+04/09/2021 12:14:41 Autoprobing TCP port
+04/09/2021 12:14:41 Autoprobing selected TCP port 5900
+04/09/2021 12:14:41 Autoprobing TCP6 port
+04/09/2021 12:14:41 Autoprobing selected TCP6 port 5900
+04/09/2021 12:14:41 listen6: bind: Address already in use
+04/09/2021 12:14:41 Not listening on IPv6 interface.
+04/09/2021 12:14:41
+04/09/2021 12:14:41 Xinerama is present and active (e.g. multi-head).
+04/09/2021 12:14:41 Xinerama: number of sub-screens: 1
+04/09/2021 12:14:41 Xinerama: no blackouts needed (only one sub-screen)
+04/09/2021 12:14:41
+04/09/2021 12:14:41 fb read rate: 485 MB/sec
+04/09/2021 12:14:41 fast read: reset -wait  ms to: 10
+04/09/2021 12:14:41 fast read: reset -defer ms to: 10
+04/09/2021 12:14:41 The X server says there are 10 mouse buttons.
+04/09/2021 12:14:41 screen setup finished.
+04/09/2021 12:14:41
 
-03/09/2021 20:20:54 ***************************************
-03/09/2021 20:20:54 *** XOpenDisplay failed (:0)
+The VNC desktop is:      ubuntu-32gb-nbg1-1:0
+PORT=5900
+
+******************************************************************************
+Have you tried the x11vnc '-ncache' VNC client-side pixel caching feature yet?
+
+The scheme stores pixel data offscreen on the VNC viewer side for faster
+retrieval.  It should work with any VNC viewer.  Try it by running:
+
+    x11vnc -ncache 10 ...
+
+One can also add -ncache_cr for smooth 'copyrect' window motion.
+More info: http://www.karlrunge.com/x11vnc/faq.html#faq-client-caching
 ```
