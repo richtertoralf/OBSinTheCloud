@@ -289,3 +289,90 @@ Some tips and guidelines:
 
 See also: http://www.karlrunge.com/x11vnc/faq.html
 ```
+## Anmeldung mit VNC Viewer von einem Windows-PC
+als root bekam ich auf dem Server folgende Meldung:  
+04/09/2021 12:14:41 screen setup finished.  
+04/09/2021 12:14:41  
+
+The VNC desktop is:      ubuntu-32gb-nbg1-1:0
+PORT=5900
+
+Einstellungen auf dem Windows-PC:  
+VNC-Server: <IP-Adresse des Servers>
+Name: ubuntu-32gb-nbg1-1:0
+ 
+Ich kann jetzt die GUI des Servers erreichen und kann mich dort als user 'cloud' anmelden, erhalte aber nur einen leeren  Bildschirm.
+ 
+Im Terminal auf dem Server, bei dem ich noch als root angemeldet bin und zuvor x11vnc gestartet habe, erhalte ich folgende Meldungen:  
+```
+04/09/2021 12:46:12 Got connection from client 93.197.255.7
+04/09/2021 12:46:12   other clients:
+04/09/2021 12:46:12 Normal socket connection
+04/09/2021 12:46:12 incr accepted_client=1 for 93.197.255.7:64345  sock=10
+04/09/2021 12:46:13 Client Protocol Version 3.8
+04/09/2021 12:46:13 Protocol version sent 3.8, using 3.8
+04/09/2021 12:46:13 rfbProcessClientSecurityType: executing handler for type 2
+04/09/2021 12:46:13 created   xdamage object: 0x1400040
+04/09/2021 12:46:17 client_set_net: 93.197.255.7  0.0375
+04/09/2021 12:46:17 rfbProcessClientNormalMessage: ignoring unsupported encoding type Enc(0x00000018)
+04/09/2021 12:46:17 rfbProcessClientNormalMessage: ignoring unsupported encoding type Enc(0x00000016)
+04/09/2021 12:46:17 rfbProcessClientNormalMessage: ignoring unsupported encoding type Enc(0x00000015)
+04/09/2021 12:46:17 rfbProcessClientNormalMessage: ignoring unsupported encoding type Enc(0x0000000F)
+04/09/2021 12:46:17 rfbProcessClientNormalMessage: ignoring unsupported encoding type Enc(0xFFFFFEC6)
+04/09/2021 12:46:17 Enabling full-color cursor updates for client 93.197.255.7
+04/09/2021 12:46:17 Enabling NewFBSize protocol extension for client 93.197.255.7
+04/09/2021 12:46:17 Using ZRLE encoding for client 93.197.255.7
+04/09/2021 12:46:17 Pixel format for client 93.197.255.7:
+04/09/2021 12:46:17   8 bpp, depth 6
+04/09/2021 12:46:17   true colour: max r 3 g 3 b 3, shift r 4 g 2 b 0
+04/09/2021 12:46:18 rfbProcessClientNormalMessage: ignoring unsupported encoding type Enc(0x00000018)
+04/09/2021 12:46:18 rfbProcessClientNormalMessage: ignoring unsupported encoding type Enc(0x00000016)
+04/09/2021 12:46:18 rfbProcessClientNormalMessage: ignoring unsupported encoding type Enc(0x00000015)
+04/09/2021 12:46:18 rfbProcessClientNormalMessage: ignoring unsupported encoding type Enc(0x0000000F)
+04/09/2021 12:46:18 rfbProcessClientNormalMessage: ignoring unsupported encoding type Enc(0xFFFFFEC6)
+04/09/2021 12:46:18 Enabling full-color cursor updates for client 93.197.255.7
+04/09/2021 12:46:18 Enabling NewFBSize protocol extension for client 93.197.255.7
+04/09/2021 12:46:18 Switching from ZRLE to raw Encoding for client 93.197.255.7
+04/09/2021 12:46:18 rfbProcessClientNormalMessage: ignoring unsupported encoding type Enc(0x00000018)
+04/09/2021 12:46:18 rfbProcessClientNormalMessage: ignoring unsupported encoding type Enc(0x00000016)
+04/09/2021 12:46:18 rfbProcessClientNormalMessage: ignoring unsupported encoding type Enc(0x00000015)
+04/09/2021 12:46:18 rfbProcessClientNormalMessage: ignoring unsupported encoding type Enc(0x0000000F)
+04/09/2021 12:46:18 rfbProcessClientNormalMessage: ignoring unsupported encoding type Enc(0xFFFFFEC6)
+04/09/2021 12:46:18 Enabling full-color cursor updates for client 93.197.255.7
+04/09/2021 12:46:18 Enabling NewFBSize protocol extension for client 93.197.255.7
+04/09/2021 12:46:18 Switching from raw to ZRLE Encoding for client 93.197.255.7
+04/09/2021 12:46:18 Pixel format for client 93.197.255.7:
+04/09/2021 12:46:18   32 bpp, depth 24, little endian
+04/09/2021 12:46:18   true colour: max r 255 g 255 b 255, shift r 16 g 8 b 0
+04/09/2021 12:46:18 no translation needed
+04/09/2021 12:46:18 client 1 network rate 143.3 KB/sec (143.3 eff KB/sec)
+04/09/2021 12:46:18 client 1 latency:  25.2 ms
+04/09/2021 12:46:18 dt1: 0.0003, dt2: 0.1358 dt3: 0.0252 bytes: 17694
+04/09/2021 12:46:18 link_rate: LR_BROADBAND - 25 ms, 143 KB/s
+04/09/2021 12:46:20 copy_tiles: allocating first_line at size 61
+04/09/2021 12:46:21 created selwin: 0x1400041
+04/09/2021 12:46:21 called initialize_xfixes()
+04/09/2021 12:46:41 increased wireframe timeouts for slow network connection.
+04/09/2021 12:46:41 netrate: 143 KB/sec, latency: 25 ms
+```  
+Wenn ich mich vom Windows-PC wieder abmelde, sehe ich auf dem Server Folgendes:  
+```  
+04/09/2021 12:52:22 client_count: 0
+04/09/2021 12:52:22 Client 93.197.255.7 gone
+04/09/2021 12:52:22 Statistics             events    Transmit/ RawEquiv ( saved)
+04/09/2021 12:52:22  ServerCutText       :      1 |         8/        8 (  0.0%)
+04/09/2021 12:52:22  FramebufferUpdate   :    145 |         0/        0 (  0.0%)
+04/09/2021 12:52:22  raw                 :      1 |     17292/    17292 (  0.0%)
+04/09/2021 12:52:22  ZRLE                :    282 |    150842/ 31222952 ( 99.5%)
+04/09/2021 12:52:22  RichCursor          :     13 |     26178/    26178 (  0.0%)
+04/09/2021 12:52:22  TOTALS              :    442 |    194320/ 31266430 ( 99.4%)
+04/09/2021 12:52:22 Statistics             events    Received/ RawEquiv ( saved)
+04/09/2021 12:52:22  ClientCutText       :      1 |       127/      127 (  0.0%)
+04/09/2021 12:52:22  KeyEvent            :     54 |       432/      432 (  0.0%)
+04/09/2021 12:52:22  PointerEvent        :    543 |      3258/     3258 (  0.0%)
+04/09/2021 12:52:22  FramebufferUpdate   :    146 |      1460/     1460 (  0.0%)
+04/09/2021 12:52:22  SetPixelFormat      :      2 |        40/       40 (  0.0%)
+04/09/2021 12:52:22  SetEncodings        :      3 |       168/      168 (  0.0%)
+04/09/2021 12:52:22  TOTALS              :    749 |      5485/     5485 (  0.0%)
+04/09/2021 12:52:22 destroyed xdamage object: 0x1400040
+```
