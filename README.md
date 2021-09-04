@@ -174,14 +174,23 @@ cloud@ubuntu-32gb-fsn1-2:~$ sudo x11vnc -auth /run/user/1000/gdm/Xauthority -use
 *** x11vnc was unable to open the X DISPLAY: ":1", it cannot continue.
 *** There may be "Xlib:" error messages above with details about the failure.
 ```
-
+**Lösung:**
+Rufe zuerst mit dem VNC-Viewer den "root-Bildschirm" auf: "deine Server IP":5900  
+(siehe "Vom Windows Client mit dem Server verbinden")  
+Ich habe mich verbinden und anmelden können. Dann kam aber ein leerer Bildschirm, da für den user cloud noch kein x11vnc Server gestartet wurde.  
+Melde dich wieder ab und starte jetzt als user cloud im Terminal den x11server  
+vorher kannst du mit `ps wwwwaux | grep auth`  nachschauen, ob du so eine Zeile siehst:  
+`root        1990  1.2  0.2 1688272 82500 tty2    Sl+  21:55   0:00 /usr/lib/xorg/Xorg vt2 -displayfd 3 -auth /run/user/1000/gdm/Xauthority -background none -noreset -keeptty -verbose 3`  
+jetzt: 
+`sudo x11vnc -auth /run/user/1000/gdm/Xauthority -usepw -forever -repeat -display :1`
 
 **Jetzt hast du zwei Instanzen von x11vnc laufen. Später werden wir das noch als Service (systemd) laufen lassen. Jetzt musst du erstmal beide Terminals noch offen lassen!**
 
 ## Vom Windows Client mit dem Server verbinden: ##  
 Ich habe den RealVNC Viewer installiert.  
-Starte den VNC Viewer mit "deiner Server IP":5900   
-5900 ist der Standartport für Display 0. hat bei mir funktioniert. Mein Server hat jetzt eine GUI und ich kann per VNC darauf zugreifen  
+Starte den VNC Viewer mit "deiner Server IP":5901   
+5901 ist der Standartport für Display 1, also das Display vom user cloud.  
+Hat bei mir funktioniert. Mein Server hat jetzt eine GUI und ich kann per VNC darauf zugreifen  
 
 ## OBS installieren ##
 im Terminal als user cloud:  
