@@ -156,11 +156,8 @@ Herzlichen Glückwunsch. Damit läuft x11vnc für den User root.
 Du musst aber auch noch für den user cloud x11vnc starten!  
 
 **Melde dich jetzt in einem neuen Terminal per SSH als user cloud auf dem Server an.**  
-dann `ps wwwwaux | grep auth`   
-Siehst du zwei Zeilen mit "-displayfd" ?  
-Aus der zweiten Zeile brauchst du wieder die user ID. In meinem Fall 1000.   
-
-Damit startest du auch für den user cloud x11vnc:   
+Mit `echo $UID` ermittelst dui deine User ID.   
+In meinem Fall 1000. Diese 1000 fügst du in der folgenden Zeile ein und startest damit x11vnc als user cloud:  
 `sudo x11vnc -auth /run/user/1000/gdm/Xauthority -usepw -forever -repeat -display :1`  
 
 **Jetzt hast du zwei Instanzen von x11vnc laufen. Später werden wir das noch als Service (systemd) laufen lassen. Jetzt musst du erstmal beide Terminals noch offen lassen!**
