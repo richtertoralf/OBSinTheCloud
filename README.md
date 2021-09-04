@@ -1,6 +1,6 @@
 # OBSinTheCloud
 OBS Studio in the cloud
-
+inspiriert von Martin Sauters Blog https://blog.wirelessmoves.com/2021/07/running-obs-studio-in-the-cloud.html
 
 Bei Hetzner einen virtuellen Server mieten  
 Intel Xeon, CX51, 8VCPU´s, 32 GB RAM, 240 GB Disk Lokal, 35,58 Euro monatlich  
