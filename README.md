@@ -159,6 +159,22 @@ Du musst aber auch noch für den user cloud x11vnc starten!
 Mit `echo $UID` ermittelst dui deine User ID.   
 In meinem Fall 1000. Diese 1000 fügst du in der folgenden Zeile ein und startest damit x11vnc als user cloud:  
 `sudo x11vnc -auth /run/user/1000/gdm/Xauthority -usepw -forever -repeat -display :1`  
+**Leider funktioniert das hier nicht. Folgende Meldung erhalte ich:**
+```
+cloud@ubuntu-32gb-fsn1-2:~$ sudo x11vnc -auth /run/user/1000/gdm/Xauthority -usepw -forever -repeat -display :1
+[sudo] password for cloud:
+04/09/2021 21:51:52 -usepw: found /root/.vnc/passwd
+04/09/2021 21:51:52 x11vnc version: 0.9.16 lastmod: 2019-01-05  pid: 1835
+04/09/2021 21:51:52 XOpenDisplay(":1") failed.
+04/09/2021 21:51:52 Trying again with XAUTHLOCALHOSTNAME=localhost ...
+
+04/09/2021 21:51:52 ***************************************
+04/09/2021 21:51:52 *** XOpenDisplay failed (:1)
+
+*** x11vnc was unable to open the X DISPLAY: ":1", it cannot continue.
+*** There may be "Xlib:" error messages above with details about the failure.
+```
+
 
 **Jetzt hast du zwei Instanzen von x11vnc laufen. Später werden wir das noch als Service (systemd) laufen lassen. Jetzt musst du erstmal beide Terminals noch offen lassen!**
 
