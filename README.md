@@ -62,7 +62,7 @@ EndSection
 Als nächstes konfigurieren und startest du den X-Server und brichst ihn Sie mit STRG-C ab, sobald die Konfiguration geschrieben wurde und die Ausgabe nach kurzer Zeit stoppt:
 
 `X -config /etc/X11/xorg.conf`  
-Jetzt müsste so eine Anzeige kommen:  
+Jetzt kommt so eine Anzeige:  
 ```
 X.Org X Server 1.20.11
 X Protocol Version 11, Revision 0
@@ -103,7 +103,6 @@ Ergibt bei mir 1000
 Verwende in der nächsten Zeile die Benutzer-ID von 'cloud' und   
 gibt bei der ersten Abfrage dann das von dir dem Benutzer 'cloud' gegebene Passwort und die richtige Display-Nummer z.B. 0 ein:  
 
-------------
 Stand 04.09.2021: 
 nach `reboot`  
 per ssh wieder als root anmelden  
@@ -113,14 +112,17 @@ Ausgabe:
 root        1061  1.8  0.2 1671784 69504 tty1    Sl+  12:23   0:00 /usr/lib/xorg/Xorg vt1 -displayfd 3 -auth /run/user/128/gdm/Xauthority -background none -noreset -keeptty -verbose 3
 root        1516  0.0  0.0   6432   664 pts/0    S+   12:23   0:00 grep --color=auto auth
 ``` 
+```
 root@ubuntu-32gb-nbg1-1:~# id -u root
 0
 root@ubuntu-32gb-nbg1-1:~# id -u cloud
 1000
+```   
 
 wenn ich dann:  
 root@ubuntu-32gb-nbg1-1:~# `x11vnc -auth /run/user/128/gdm/Xauthority -usepw -forever -repeat -display :0`  so x11vnc starte,  
-bekomme ich folgende Meldungen:  
+bekomme ich folgende Meldungen:   
+
 ```
 root@ubuntu-32gb-nbg1-1:~# x11vnc -auth /run/user/128/gdm/Xauthority -usepw -forever -repeat -display :0
 04/09/2021 12:14:41 -usepw: found /root/.vnc/passwd
