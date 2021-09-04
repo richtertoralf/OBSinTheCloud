@@ -167,7 +167,7 @@ Damit startest du auch für den user cloud x11vnc:
 
 ## Vom Windows Client mit dem Server verbinden: ##  
 Ich habe den RealVNC Viewer installiert.  
-Starte den VNC Viewer mit <deiner Server IP>:5900   
+Starte den VNC Viewer mit "deiner Server IP":5900   
 5900 ist der Standartport für Display 0. hat bei mir funktioniert. Mein Server hat jetzt eine GUI und ich kann per VNC darauf zugreifen  
 
 ## OBS installieren ##
