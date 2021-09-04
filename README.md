@@ -291,17 +291,19 @@ See also: http://www.karlrunge.com/x11vnc/faq.html
 ```
 ## Anmeldung mit VNC Viewer von einem Windows-PC
 als root bekam ich auf dem Server folgende Meldung:  
+```
 04/09/2021 12:14:41 screen setup finished.  
 04/09/2021 12:14:41  
-
 The VNC desktop is:      ubuntu-32gb-nbg1-1:0
-PORT=5900
-
-Einstellungen auf dem Windows-PC:  
-VNC-Server: <IP-Adresse des Servers>
-Name: ubuntu-32gb-nbg1-1:0
+PORT=5900  
+```
+Deshalb verwende ich folgende Einstellungen auf dem Windows-PC:  
+**VNC-Server: <IP-Adresse des Servers>:5900**
+**Name: ubuntu-32gb-nbg1-1:0**
  
-Ich kann jetzt die GUI des Servers erreichen und kann mich dort als user 'cloud' anmelden, erhalte aber nur einen leeren  Bildschirm.
+Ich kann jetzt die GUI des Servers erreichen und kann mich dort als user 'cloud' anmelden, erhalte dann aber nur einen leeren  Bildschirm.
+
+**Es läuft ja nur der Bildschirm :0 für den User root. Das Display für den user cloud habe ich ja noch nicht zum Laufen gebracht.**
  
 Im Terminal auf dem Server, bei dem ich noch als root angemeldet bin und zuvor x11vnc gestartet habe, erhalte ich folgende Meldungen:  
 ```
