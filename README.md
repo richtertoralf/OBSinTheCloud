@@ -94,7 +94,7 @@ Variante 1
 ```
 sudo apt install x11vnc gnome-shell ubuntu-gnome-desktop autocutsel gnome-core gnome-panel gnome-themes-standard gnome-settings-daemon metacity nautilus gnome-terminal dconf-editor gnome-tweaks yaru-theme-unity yaru-theme-gnome-shell yaru-theme-gtk yaru-theme-icon fonts-ubuntu tmux fonts-emojione
 ```
-oder Variante 2, die ich verwendet habe:   
+oder Variante 2, die ich verwendet habe, bei der aber jede Menge Kram mit installiert wird, welchen wir nicht wirklich benötigen, wie z.B. LibreOffice, Firefox und Thunderbird sowie paar Spiele:   
 ```
 apt install --no-install-recommends ubuntu-desktop -y
 apt install x11vnc -y
@@ -157,14 +157,23 @@ Du musst aber auch noch für den user cloud x11vnc starten!
 
 **Melde dich jetzt in einem neuen Terminal per SSH als user cloud auf dem Server an.**  
 dann `ps wwwwaux | grep auth`   
-Siehst du zwei Zeilen mit "-displayfd" ? Aus der zweiten Zeile brauchst du wieder die user ID. In meinem Fall 1000.   
+Siehst du zwei Zeilen mit "-displayfd" ?  
+Aus der zweiten Zeile brauchst du wieder die user ID. In meinem Fall 1000.   
 
 Damit startest du auch für den user cloud x11vnc:   
-`sudo x11vnc -auth /run/user/1000/gdm/Xauthority -usepw -forever -repeat -display :1`
+`sudo x11vnc -auth /run/user/1000/gdm/Xauthority -usepw -forever -repeat -display :1`  
 
-Jetzt hast du zwei Instanzen von x11vnc laufen. Später werden wir das noch als Service (systemd) laufen lassen. Jetzt musst du beide Terminals offen lassen!
+**Jetzt hast du zwei Instanzen von x11vnc laufen. Später werden wir das noch als Service (systemd) laufen lassen. Jetzt musst du erstmal beide Terminals noch offen lassen!**
 
-##Vom Windows Client mit dem Server verbinden:##
-Ich habe den RealVNC Viewer installiert.
+##Vom Windows Client mit dem Server verbinden:##  
+Ich habe den RealVNC Viewer installiert.  
 Starte den VNC Viewer mit <deiner Server IP>:5900   
-5900 ist der Standartport für Display 0. hat bei mir funktioniert. Mein Server hat jetzt eine GUI und ich kann per VNC darauf zugreifen :-)
+5900 ist der Standartport für Display 0. hat bei mir funktioniert. Mein Server hat jetzt eine GUI und ich kann per VNC darauf zugreifen :-)  
+
+##OBS installieren##
+im Terminal als user cloud:  
+```
+sudo apt install v4l2loopback-dkms -y
+sudo add-apt-repository ppa:obsproject/obs-studio -y
+sudo apt install obs-studio -y
+``` 
