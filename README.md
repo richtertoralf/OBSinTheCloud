@@ -104,10 +104,50 @@ Wenn die Installation fertig ist, den Rechner neu starten:
 `reboot`  
 
 ## geht das auch mit Debian 11 und xfce? ##
+Schnell mal getestet:  
+### quick and dirty ###
 `apt install x11vnc lightdm xfce4`  
 `reboot`  
 `sudo x11vnc -xkb -noxrecord -noxfixes -noxdamage -display :0 -auth /var/run/lightdm/root/:0 -usepw` 
+`/usr/bin/x11vnc -xkb -noxrecord -noxfixes -noxdamage -display :0 -auth /var/run/lightdm/root/:0 -usepw`
+### Autostart per systemd einrichten: ###
+`nano /lib/systemd/system/x11vnc.service`  
+und einfügen:
+```
+[Unit]
+Description=Start x11vnc
+After=multi-user.target
 
+[Service]
+Type=simple
+ExecStart=x11vnc -xkb -noxrecord -noxfixes -noxdamage -display :0 -auth /var/run/lightdm/root/:0
+
+[Install]
+WantedBy=multi-user.target
+```
+dann noch   
+```
+systemctl daemon-reload
+systemctl enable x11vnc.service
+systemctl start x11vnc.service
+systemctl status x11vnc.service
+```
+
+>Diese Variante ist aus Sicherheitsgründen nicht zu empfehlen, da du dann auch per VNC Viewer immer als user root unterwegs bist. Außerdem wird kein VNC-Passwort abgefragt. Diese Variante kann aber Sinn machen, wenn so eine virtuelle Maschine mal schnell, nur für wenige Stunden erzeugt, genutzt und dann wieder gelöscht wird.  
+
+Jetzt noch ffmpeg und OBS-Studio installieren:
+```
+# apt-get install software-properties-common
+# add-apt-repository ppa:obsproject/obs-studio
+apt install v4l2loopback-dkms -y
+apt install ffmpeg
+apt install obs-studio
+# damit wird leider nur eine ältere Version von OBS installiert. Muss ich mir noch mal anschauen ;-)
+```
+
+**Testen - im VNC-Viewer z.B. von deiner Windows Maschine mit `168.xxx.xxx.xxx:5900` aufrufen.  Bei mir hat´s funktioniert.**
+
+## und so gehts mit Ubuntu ##
 Melde dich dann wieder per SSH als **root** an.  
 root@ubuntu-32gb-nbg1-1:~# `ps wwwwaux | grep auth`  
 Ausgabe:  
