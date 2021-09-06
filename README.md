@@ -103,6 +103,11 @@ Das dauert paar Minuten.
 Wenn die Installation fertig ist, den Rechner neu starten:  
 `reboot`  
 
+## geht das auch mit Debian 11 und xfce? ##
+`apt install x11vnc lightdm xfce4`  
+`reboot`  
+`sudo x11vnc -xkb -noxrecord -noxfixes -noxdamage -display :0 -auth /var/run/lightdm/root/:0 -usepw` 
+
 Melde dich dann wieder per SSH als **root** an.  
 root@ubuntu-32gb-nbg1-1:~# `ps wwwwaux | grep auth`  
 Ausgabe:  
@@ -193,7 +198,8 @@ Starte den VNC Viewer mit "deiner Server IP":5901
 Hat bei mir funktioniert. Mein Server hat jetzt eine GUI und ich kann per VNC darauf zugreifen  
 
 ## OBS installieren ##
-im Terminal als user cloud:  
+im Terminal als user cloud  
+zuerst ffmpeg installieren und dann:  
 ```
 sudo apt install v4l2loopback-dkms -y
 sudo add-apt-repository ppa:obsproject/obs-studio -y
