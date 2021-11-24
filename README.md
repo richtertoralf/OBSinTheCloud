@@ -1,7 +1,7 @@
 # OBSinTheCloud
-OBS Studio in the cloud
-inspiriert von Martin Sauters Blog https://blog.wirelessmoves.com/2021/07/running-obs-studio-in-the-cloud.html
-OBS in der Cloud bietet mir einige Vorteile, wenn ich z.B. bei Outdoor-Sportveranstaltungen, wie Radrennen, Motorsportveranstaltungen oder Skilanglaufmarathons, Videostreams mit mobilen Kameras mit 4G-Encodern produziere. Der Schnitt und die Produktion des fertigen Programms kann dann ortsunabhängig, von einem kleinen Rechner aus, in der Cloud erfolgen.
+OBS Studio in the cloud  
+**inspiriert von Martin Sauters Blog https://blog.wirelessmoves.com/2021/07/running-obs-studio-in-the-cloud.html**  
+> OBS in der Cloud bietet mir einige Vorteile, wenn ich z.B. bei Outdoor-Sportveranstaltungen, wie Radrennen, Motorsportveranstaltungen oder Skilanglaufmarathons, Videostreams mit mobilen Kameras mit 4G-Encodern produziere. Der Schnitt und die Produktion des fertigen Programms kann dann ortsunabhängig, von einem kleinen Rechner aus, in der Cloud erfolgen.
 
 Zuerst z.B. bei Hetzner einen virtuellen Server mieten.
 Damit hat es funktioniert:
