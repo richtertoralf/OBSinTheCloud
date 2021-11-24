@@ -112,6 +112,8 @@ Die Installation dauert jeweils paar Minuten.
 Wenn die Installation fertig ist, den Rechner neu starten:  
 `reboot`  
 
+---  
+
 ## geht das auch mit Debian 11 und xfce? ##
 Schnell mal getestet:  
 ### quick and dirty ###
@@ -119,7 +121,7 @@ Schnell mal getestet:
 `reboot`  
 `sudo x11vnc -xkb -noxrecord -noxfixes -noxdamage -display :0 -auth /var/run/lightdm/root/:0 -usepw` 
 `/usr/bin/x11vnc -xkb -noxrecord -noxfixes -noxdamage -display :0 -auth /var/run/lightdm/root/:0 -usepw`
-### Autostart per systemd einrichten: ###
+### Autostart für x11vnc per systemd einrichten: ###
 `nano /lib/systemd/system/x11vnc.service`  
 und einfügen:
 ```
@@ -154,10 +156,11 @@ apt install ffmpeg
 apt install obs-studio
 # damit wird leider nur eine ältere Version von OBS installiert. Muss ich mir noch mal anschauen ;-)
 ```
+---
 
 **Testen - im VNC-Viewer z.B. von deiner Windows Maschine mit `168.xxx.xxx.xxx:5900` aufrufen.  Bei mir hat´s funktioniert.**
 
-## und so gehts mit Ubuntu ##
+##  jetzt zurück zu Ubuntu ##
 Melde dich dann wieder per SSH als **root** an.  
 root@ubuntu-32gb-nbg1-1:~# `ps wwwwaux | grep auth`  
 Ausgabe:  
