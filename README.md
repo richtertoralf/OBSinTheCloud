@@ -156,9 +156,9 @@ apt install ffmpeg
 apt install obs-studio
 # damit wird leider nur eine ältere Version von OBS installiert. Muss ich mir noch mal anschauen ;-)
 ```
----
 
-**Testen - im VNC-Viewer z.B. von deiner Windows Maschine mit `168.xxx.xxx.xxx:5900` aufrufen.  Bei mir hat´s funktioniert.**
+**Testen - im VNC-Viewer z.B. von deiner Windows Maschine mit `168.xxx.xxx.xxx:5900` aufrufen.  Bei mir hat´s funktioniert.**  
+---  
 
 ##  jetzt zurück zu Ubuntu ##
 Melde dich dann wieder per SSH als **root** an.  
