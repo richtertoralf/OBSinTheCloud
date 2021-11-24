@@ -133,11 +133,11 @@ Schnell mal getestet:
 ### quick and dirty ###
 `apt update -y && apt upgrade -y`  
 `adduser cloud`  
-`usermod -aG sudo cloud` 
+`usermod -aG sudo cloud`  
 `apt install xserver-xorg-video-dummy -y`  
 **jetzt die /etc/X11/xorg.conf erstellen**  
 `apt install x11vnc lightdm xfce4`  
-`apt install xfce4-terminal` 
+`apt install xfce4-terminal`  
 `reboot`  
 **wieder per SSH als user root verbinden und x11vnc starten**
 `/usr/bin/x11vnc -xkb -noxrecord -noxfixes -noxdamage -display :0 -auth /var/run/lightdm/root/:0 -usepw`  
