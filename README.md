@@ -182,9 +182,11 @@ apt install ffmpeg
 apt install obs-studio
 # damit wird leider nur eine ältere Version von OBS installiert. Muss ich mir noch mal anschauen ;-)
 ```
+
 ### noch paar Infos: ###
 x11vnc Passwort ändern: `x11vnc -storepasswd`  
-x11vnc starten:  `x11vnc -auth /run/user/root/gdm/Xauthority -usepw -forever -repeat -display :0` 
+x11vnc starten:  `x11vnc -auth /run/user/root/gdm/Xauthority -usepw -forever -repeat -display :0`  
+
 ---  
 
 ##  jetzt zurück zu Ubuntu ##
