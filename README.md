@@ -1,26 +1,29 @@
 # OBSinTheCloud
 OBS Studio in the cloud
 inspiriert von Martin Sauters Blog https://blog.wirelessmoves.com/2021/07/running-obs-studio-in-the-cloud.html
+OBS in der Cloud bietet mir einige Vorteile, wenn ich z.B. bei Outdoor-Sportveranstaltungen, wie Radrennen, Motorsportveranstaltungen oder Skilanglaufmarathons, Videostreams mit mobilen Kameras mit 4G-Encodern produziere. Der Schnitt und die Produktion des fertigen Programms kann dann ortsunabhängig, von einem kleinen Rechner aus, in der Cloud erfolgen.
 
-Zuerst z.B. bei Hetzner einen virtuellen Server mieten,  
-damit hat es funktioniert:
+Zuerst z.B. bei Hetzner einen virtuellen Server mieten.
+Damit hat es funktioniert:
 Intel Xeon, CX51, 8VCPU´s, 32 GB RAM, 240 GB Disk Lokal, 35,58 Euro monatlich  
 mit Ubuntu 20.04  
-
+Warum Linux und nicht Windows? 
+- Kostenreduzierung (keine Lizenzkosten)
+- effektivere Auslastung der Hardware
 8 vCPUs müssten für für 1920x1080p-Streaming und -Aufzeichnung funktionieren  
  
-Zuerst wird das Repository aktualisiert, der Video-Dummy-Treiber und das X-Server-System installiert und ein neuer Benutzer zur Verwendung in der GUI wie folgt erstellt:
+Zuerst wird das Repository aktualisiert, der Video-Dummy-Treiber und das X-Windows-System installiert und ein neuer Benutzer zur Verwendung in der GUI wie folgt erstellt:
 
 `apt update -y && apt upgrade -y`  
 `apt install xserver-xorg-video-dummy -y`  
-
-Einen Benutzer 'cloud' anlegen, da du unter Ubuntu Desktop einen normalen Benutzer benötigst um zu arbeiten   
+  
 `adduser cloud`  
 und ihm root Rechte geben  
 `usermod -aG sudo cloud`  
 
-Der X-Server benötigt eine Konfigurationsdatei in /etc/X11/xorg.conf, die folgenden Inhalt haben sollte (Danke an Martin Sauter):  
-Die in dieser Konfigurationsdatei verwendete Modeline erstellt einen Monitor, der mit einer Bildwiederholfrequenz von genau 60 Hz läuft. Dies ist wichtig für OBS, um qualitativ hochwertige Aufnahmen von Videostreams zu erstellen!  
+Da unser ausgewählter virtueller Server über keine Grafikarte und auch keinen Bildschirm verfügt, müssen wir diese simulieren und konfigurieren.
+Dafür hat X-Windows die Konfigurationsdatei **/etc/X11/xorg.conf**, die folgenden Inhalt haben sollte (Danke an Martin Sauter):  
+Mit den folgenden Einstellungen der Konfigurationsdatei wird ein Monitor erstellt/simuliert, der mit einer Bildwiederholfrequenz von genau 60 Hz läuft. Dies ist wichtig für OBS, um qualitativ hochwertige Aufnahmen von Videostreams mit 1080p und 30 oder 60 Hz zu erstellen!  
 
 `nano /etc/X11/xorg.conf`    
 
@@ -59,8 +62,9 @@ Section "Screen"
     EndSubSection
 EndSection
 ```
-Als nächstes den X-Server konfigurieren indem du ihn als user root startest   
-und nach kurzer Zeit STRG-C abbrichst, sobald die Konfiguration geschrieben wurde und die Ausgabe nach kurzer Zeit stoppt:  
+
+Als nächstes X-Windows konfigurieren indem du **X** als user root startest    
+und nach kurzer Zeit, sobald die Konfiguration geschrieben wurde und die Ausgabe Zeit stoppt,  mit STRG-C abbrichst:  
 `X -config /etc/X11/xorg.conf`  
 Jetzt kommt so eine Anzeige:  
 ```
@@ -86,19 +90,24 @@ paar Infos dazu:
 **Identifizieren der Displaynummer**    
 Wenn kein anderer X-Server läuft, wird standardmäßig die Anzeigenummer 0 verwendet. Suche nach dieser Zeile, um die verwendete Anzeige zu identifizieren:  
 hier ist sie **(==) Log file: "/var/log/Xorg.0.log", Time: Fri Sep  3 19:12:00 2021**   
-In dieser Zeile  Xorg.0.logwird dir mitgeteilt, dass das Display 0 verwendet wird, während dir Xorg.1.log sagt, dass das Display 1 verwendet wird.  
+Mit der Zeile **Xorg.0.log** wird dir mitgeteilt, dass das Display 0 verwendet wird, während dir **Xorg.1.log** sagt, dass das Display 1 verwendet wird.  
 
-Jetzt fehlt noch die komplette GUI.    
+Jetzt fehlt noch die komplette GUI, also der Windowmanager, der Displaymanager und die Desktop-Umgebung sowie ein Tool für den Fernzugriff (X11vnc).  
 
-Variante 1  
+**Variante 1**  
 ```
 sudo apt install x11vnc gnome-shell ubuntu-gnome-desktop autocutsel gnome-core gnome-panel gnome-themes-standard gnome-settings-daemon metacity nautilus gnome-terminal dconf-editor gnome-tweaks yaru-theme-unity yaru-theme-gnome-shell yaru-theme-gtk yaru-theme-icon fonts-ubuntu tmux fonts-emojione
 ```
-oder Variante 2, die ich verwendet habe, bei der aber jede Menge Kram mit installiert wird, welchen wir nicht wirklich benötigen, wie z.B. LibreOffice, Firefox und Thunderbird sowie paar Spiele:   
+**Variante 2**  
+Bei der jede Menge Kram mit installiert wird, welchen wir nicht wirklich benötigen, wie z.B. LibreOffice, Firefox und Thunderbird sowie paar Spiele:   
 ```
 apt install --no-install-recommends ubuntu-desktop -y
 apt install x11vnc -y
 ```
+**Variante 3**  
+Sparsame kleine Desktopumgebung  
+`apt install x11vnc lightdm xfce4`
+
 Das dauert paar Minuten.  
 Wenn die Installation fertig ist, den Rechner neu starten:  
 `reboot`  
