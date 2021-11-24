@@ -3,6 +3,7 @@ OBS Studio in the cloud
 **inspiriert von Martin Sauters Blog https://blog.wirelessmoves.com/2021/07/running-obs-studio-in-the-cloud.html**  
 > OBS in der Cloud bietet mir einige Vorteile, wenn ich z.B. bei Outdoor-Sportveranstaltungen, wie Radrennen, Motorsportveranstaltungen oder Skilanglaufmarathons, Videostreams mit mobilen Kameras mit 4G-Encodern produziere. Der Schnitt und die Produktion des fertigen Programms kann dann ortsunabhängig, von einem kleinen Rechner aus, in der Cloud erfolgen.
 
+## Ubuntu ##
 Zuerst z.B. bei Hetzner einen virtuellen Server mieten.
 Damit hat es funktioniert:
 Intel Xeon, CX51, 8VCPU´s, 32 GB RAM, 240 GB Disk Lokal, 35,58 Euro monatlich  
@@ -104,10 +105,10 @@ apt install --no-install-recommends ubuntu-desktop -y
 apt install x11vnc -y
 ```
 **Variante 3**  
-Sparsame kleine Desktopumgebung  
-`apt install x11vnc lightdm xfce4`
+Sparsame kleine Desktopumgebung (Lubuntu ohne Anwendungsprogramme)  
+`apt install x11vnc lightdm lxde-core`  
 
-Das dauert paar Minuten.  
+Die Installation dauert jeweils paar Minuten.  
 Wenn die Installation fertig ist, den Rechner neu starten:  
 `reboot`  
 
@@ -142,6 +143,7 @@ systemctl status x11vnc.service
 ```
 
 >Diese Variante ist aus Sicherheitsgründen nicht zu empfehlen, da du dann auch per VNC Viewer immer als user root unterwegs bist. Außerdem wird kein VNC-Passwort abgefragt. Diese Variante kann aber Sinn machen, wenn so eine virtuelle Maschine mal schnell, nur für wenige Stunden erzeugt, genutzt und dann wieder gelöscht wird.  
+>Auf Sicherheitsaspekte bin ich hier nicht weiter eingegangen.  
 
 Jetzt noch ffmpeg und OBS-Studio installieren:
 ```
