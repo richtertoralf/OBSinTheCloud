@@ -17,7 +17,6 @@ Warum Linux und nicht Windows?
 Zuerst wird das Repository aktualisiert, der Video-Dummy-Treiber und das X-Windows-System installiert und ein neuer Benutzer zur Verwendung in der GUI wie folgt erstellt:
 
 `apt update -y && apt upgrade -y`  
-**"Grafiktreiber" installieren**
 `apt install xserver-xorg-video-dummy -y`  
 
 **weitere Infos zum xorg-Dummy: https://techoverflow.net/2019/02/23/how-to-run-x-server-using-xserver-xorg-video-dummy-driver-on-ubuntu/**
