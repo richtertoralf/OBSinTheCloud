@@ -17,6 +17,8 @@ Zuerst wird das Repository aktualisiert, der Video-Dummy-Treiber und das X-Windo
 
 `apt update -y && apt upgrade -y`  
 `apt install xserver-xorg-video-dummy -y`  
+
+**weitere Infos zum xorg-Dummy: https://techoverflow.net/2019/02/23/how-to-run-x-server-using-xserver-xorg-video-dummy-driver-on-ubuntu/**
   
 `adduser cloud`  
 und ihm root Rechte geben  
