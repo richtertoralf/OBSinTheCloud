@@ -3,7 +3,8 @@ OBS Studio in the cloud
 **inspiriert von Martin Sauters Blog https://blog.wirelessmoves.com/2021/07/running-obs-studio-in-the-cloud.html**  
 > OBS in der Cloud bietet mir einige Vorteile, wenn ich z.B. bei Outdoor-Sportveranstaltungen, wie Radrennen, Motorsportveranstaltungen oder Skilanglaufmarathons, Videostreams mit mobilen Kameras mit 4G-Encodern produziere. Der Schnitt und die Produktion des fertigen Programms kann dann ortsunabhängig, von einem kleinen Rechner aus, in der Cloud erfolgen.
 
-## Ubuntu ##
+## Grundinstallation ##
+### Ubuntu ###
 Zuerst z.B. bei Hetzner einen virtuellen Server mieten.
 Damit hat es funktioniert:
 Intel Xeon, CX51, 8VCPU´s, 32 GB RAM, 240 GB Disk Lokal, 35,58 Euro monatlich  
@@ -16,6 +17,7 @@ Warum Linux und nicht Windows?
 Zuerst wird das Repository aktualisiert, der Video-Dummy-Treiber und das X-Windows-System installiert und ein neuer Benutzer zur Verwendung in der GUI wie folgt erstellt:
 
 `apt update -y && apt upgrade -y`  
+**"Grafiktreiber" installieren**
 `apt install xserver-xorg-video-dummy -y`  
 
 **weitere Infos zum xorg-Dummy: https://techoverflow.net/2019/02/23/how-to-run-x-server-using-xserver-xorg-video-dummy-driver-on-ubuntu/**
@@ -23,6 +25,8 @@ Zuerst wird das Repository aktualisiert, der Video-Dummy-Treiber und das X-Windo
 `adduser cloud`  
 und ihm root Rechte geben  
 `usermod -aG sudo cloud`  
+
+### X-Window konfigurieren ###
 
 Da unser ausgewählter virtueller Server über keine Grafikarte und auch keinen Bildschirm verfügt, müssen wir diese simulieren und konfigurieren. Mit den folgenden Einstellungen in der Konfigurationsdatei wird ein Monitor erstellt/simuliert, der mit einer Bildwiederholfrequenz von genau 60 Hz läuft. Dies ist wichtig für OBS, um qualitativ hochwertige Aufnahmen von Videostreams mit 1080p und 30 oder 60 Hz zu erstellen!  
 Dafür hat X-Windows die Konfigurationsdatei **/etc/X11/xorg.conf**, die folgenden Inhalt haben sollte (Danke an Martin Sauter):  
@@ -71,7 +75,7 @@ EndSection
 
 Als nächstes X-Windows konfigurieren indem du **X** als user root startest    
 und nach kurzer Zeit, sobald die Konfiguration geschrieben wurde und die Ausgabe Zeit stoppt,  mit STRG-C abbrichst:  
-`X -config /etc/X11/xorg.conf`  
+**`X -config /etc/X11/xorg.conf`**  
 Jetzt kommt so eine Anzeige:  
 ```
 X.Org X Server 1.20.11
@@ -98,6 +102,10 @@ Wenn kein anderer X-Server läuft, wird standardmäßig die Anzeigenummer 0 verw
 hier ist sie **(==) Log file: "/var/log/Xorg.0.log", Time: Fri Sep  3 19:12:00 2021**   
 Mit der Zeile **Xorg.0.log** wird dir mitgeteilt, dass das Display 0 verwendet wird, während dir **Xorg.1.log** sagt, dass das Display 1 verwendet wird.  
 
+** 
+
+## GUI installieren ##
+
 Jetzt fehlt noch die komplette GUI, also der Windowmanager, der Displaymanager und die Desktop-Umgebung sowie ein Tool für den Fernzugriff (X11vnc).  
 
 **Variante 1**  
@@ -123,10 +131,22 @@ Wenn die Installation fertig ist, den Rechner neu starten:
 ## geht das auch mit Debian 11 und xfce? ##
 Schnell mal getestet:  
 ### quick and dirty ###
+`apt update -y && apt upgrade -y`  
+`adduser cloud`  
+`usermod -aG sudo cloud` 
+`apt install xserver-xorg-video-dummy -y`  
+**jetzt die /etc/X11/xorg.conf erstellen**  
 `apt install x11vnc lightdm xfce4`  
+`apt install xfce4-terminal` 
 `reboot`  
-`sudo x11vnc -xkb -noxrecord -noxfixes -noxdamage -display :0 -auth /var/run/lightdm/root/:0 -usepw` 
-`/usr/bin/x11vnc -xkb -noxrecord -noxfixes -noxdamage -display :0 -auth /var/run/lightdm/root/:0 -usepw`
+**wieder per SSH als user root verbinden und x11vnc starten**
+`/usr/bin/x11vnc -xkb -noxrecord -noxfixes -noxdamage -display :0 -auth /var/run/lightdm/root/:0 -usepw`  
+Im Terminal wird jetzt x11vnc gestartet. Wenn alles Fehlerfrei durchläuft erhältst du unter anderem die Info:  
+*The VNC desktop is:  debian....:0  
+PORT=5900*  
+**testen, ob der Fernzugriff per VNC Viewer funktioniert:**  
+-> z.B. im VNC-Viewer von deiner lokalen Windows Maschine mit `<Cloud-Server-IP>:5900` aufrufen. Bei mir hat´s funktioniert.  
+Das ist der Root-Zugriff
 ### Autostart für x11vnc per systemd einrichten: ###
 `nano /lib/systemd/system/x11vnc.service`  
 und einfügen:
@@ -142,7 +162,7 @@ ExecStart=x11vnc -xkb -noxrecord -noxfixes -noxdamage -display :0 -auth /var/run
 [Install]
 WantedBy=multi-user.target
 ```
-dann noch   
+dann noch:    
 ```
 systemctl daemon-reload
 systemctl enable x11vnc.service
@@ -162,8 +182,9 @@ apt install ffmpeg
 apt install obs-studio
 # damit wird leider nur eine ältere Version von OBS installiert. Muss ich mir noch mal anschauen ;-)
 ```
-
-**Testen - im VNC-Viewer z.B. von deiner Windows Maschine mit `168.xxx.xxx.xxx:5900` aufrufen.  Bei mir hat´s funktioniert.**  
+### noch paar Infos: ###
+x11vnc Passwort ändern: `x11vnc -storepasswd`  
+x11vnc starten:  `x11vnc -auth /run/user/root/gdm/Xauthority -usepw -forever -repeat -display :0` 
 ---  
 
 ##  jetzt zurück zu Ubuntu ##
@@ -220,7 +241,7 @@ Herzlichen Glückwunsch. Damit läuft x11vnc für den User root.
 Du musst aber auch noch für den user cloud x11vnc starten!  
 
 **Melde dich jetzt in einem neuen Terminal per SSH als user cloud auf dem Server an.**  
-Mit `echo $UID` ermittelst dui deine User ID.   
+Mit `echo $UID` ermittelst du deine User ID.   
 In meinem Fall 1000. Diese 1000 fügst du in der folgenden Zeile ein und startest damit x11vnc als user cloud:  
 `sudo x11vnc -auth /run/user/1000/gdm/Xauthority -usepw -forever -repeat -display :1`  
 **Leider funktioniert das hier nicht. Folgende Meldung erhalte ich:**
@@ -264,3 +285,15 @@ sudo apt install v4l2loopback-dkms -y
 sudo add-apt-repository ppa:obsproject/obs-studio -y
 sudo apt install obs-studio -y
 ``` 
+## Google Chrome installieren ##
+```
+wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb  
+sudo apt install ./google-chrome-stable_current_amd64.deb  
+```
+
+## TeamViewer installieren ##
+```
+wget https://download.teamviewer.com/download/linux/teamviewer_amd64.deb  
+sudo apt install ./teamviewer_amd64.deb  
+
+```
