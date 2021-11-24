@@ -38,24 +38,28 @@ Dafür hat X-Windows die Konfigurationsdatei **/etc/X11/xorg.conf**, die folgend
 # Here we setup a Virtual Display of 1920x1080 pixels
  
 Section "Device"
-     Identifier "Configured Video Device"
-     Driver "dummy"
-     #VideoRam 4096000
-     VideoRam 256000
-     #VideoRam 16384
+  Identifier "dummy_videocard"
+  Driver "dummy"
+  Option "ConstantDPI" "true"
+  #VideoRam 4096000
+  #VideoRam 256000
+  VideoRam 192000
 EndSection
 
 Section "Monitor"
-    Identifier "Configured Monitor"
-    HorizSync 5.0 - 1000.0
-    VertRefresh 5.0 - 200.0
-    Modeline "1920x1080_60.00"  173.00  1920 2048 2248 2576  1080 1083 1088 1120 -hsync +vsync
+  Identifier "dummy_monitor"
+  HorizSync   5.0 - 1000.0
+  VertRefresh 5.0 - 200.0
+  # Modeline Calculator
+  # https://arachnoid.com/modelines/
+  # 1920x1080 @ 60.00 Hz (GTF) hsync: 67.08 kHz; pclk: 172.80 MHz
+  Modeline "1920x1080_60.00" 172.80 1920 2040 2248 2576 1080 1081 1084 1118 -HSync +Vsync
 EndSection
 
 Section "Screen"
-    Identifier "Default Screen"
-    Monitor "Configured Monitor"
-    Device "Configured Video Device"
+  Identifier "dummy_screen"
+    Device "dummy_videocard"
+    Monitor "dummy_monitor"
     DefaultDepth 24
     SubSection "Display"
         Viewport 0 0
