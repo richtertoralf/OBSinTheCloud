@@ -9,7 +9,7 @@ Intel Xeon, CX51, 8VCPU´s, 32 GB RAM, 240 GB Disk Lokal, 35,58 Euro monatlich
 mit Ubuntu 20.04  
 Warum Linux und nicht Windows? 
 - Kostenreduzierung (keine Lizenzkosten)
-- effektivere Auslastung der Hardware
+- effektivere Auslastung der Hardware  
 8 vCPUs müssten für für 1920x1080p-Streaming und -Aufzeichnung funktionieren  
  
 Zuerst wird das Repository aktualisiert, der Video-Dummy-Treiber und das X-Windows-System installiert und ein neuer Benutzer zur Verwendung in der GUI wie folgt erstellt:
@@ -21,9 +21,8 @@ Zuerst wird das Repository aktualisiert, der Video-Dummy-Treiber und das X-Windo
 und ihm root Rechte geben  
 `usermod -aG sudo cloud`  
 
-Da unser ausgewählter virtueller Server über keine Grafikarte und auch keinen Bildschirm verfügt, müssen wir diese simulieren und konfigurieren.
+Da unser ausgewählter virtueller Server über keine Grafikarte und auch keinen Bildschirm verfügt, müssen wir diese simulieren und konfigurieren. Mit den folgenden Einstellungen in der Konfigurationsdatei wird ein Monitor erstellt/simuliert, der mit einer Bildwiederholfrequenz von genau 60 Hz läuft. Dies ist wichtig für OBS, um qualitativ hochwertige Aufnahmen von Videostreams mit 1080p und 30 oder 60 Hz zu erstellen!  
 Dafür hat X-Windows die Konfigurationsdatei **/etc/X11/xorg.conf**, die folgenden Inhalt haben sollte (Danke an Martin Sauter):  
-Mit den folgenden Einstellungen der Konfigurationsdatei wird ein Monitor erstellt/simuliert, der mit einer Bildwiederholfrequenz von genau 60 Hz läuft. Dies ist wichtig für OBS, um qualitativ hochwertige Aufnahmen von Videostreams mit 1080p und 30 oder 60 Hz zu erstellen!  
 
 `nano /etc/X11/xorg.conf`    
 
