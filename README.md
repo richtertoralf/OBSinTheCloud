@@ -105,6 +105,7 @@ Mit der Zeile **Xorg.0.log** wird dir mitgeteilt, dass das Display 0 verwendet w
 ** 
 
 ## GUI installieren ##
+NOTE: OpenGL 3.3 or later is required to use OBS Studio on Linux. You can check what version of OpenGL is supported by your system by typing glxinfo | grep "OpenGL" on Terminal.  
 
 Jetzt fehlt noch die komplette GUI, also der Windowmanager, der Displaymanager und die Desktop-Umgebung sowie ein Tool für den Fernzugriff (X11vnc).  
 
@@ -113,9 +114,9 @@ Jetzt fehlt noch die komplette GUI, also der Windowmanager, der Displaymanager u
 sudo apt install x11vnc gnome-shell ubuntu-gnome-desktop autocutsel gnome-core gnome-panel gnome-themes-standard gnome-settings-daemon metacity nautilus gnome-terminal dconf-editor gnome-tweaks yaru-theme-unity yaru-theme-gnome-shell yaru-theme-gtk yaru-theme-icon fonts-ubuntu tmux fonts-emojione
 ```
 **Variante 2**  
-Bei der jede Menge Kram mit installiert wird, welchen wir nicht wirklich benötigen, wie z.B. LibreOffice, Firefox und Thunderbird sowie paar Spiele:   
+Bei der noch etwas zusätzliche Software mit installiert wird, wie z.B. LibreOffice, Firefox und Thunderbird sowie paar Spiele:   
 ```
-apt install --no-install-recommends ubuntu-desktop -y
+apt install ubuntu-desktop --no-install-recommends -y
 apt install x11vnc -y
 ```
 **Variante 3**  
@@ -280,6 +281,7 @@ Starte den VNC Viewer mit "deiner Server IP":5901
 Hat bei mir funktioniert. Mein Server hat jetzt eine GUI und ich kann per VNC darauf zugreifen  
 
 ## OBS installieren ##
+https://obsproject.com/wiki/install-instructions  
 im Terminal als user cloud  
 zuerst ffmpeg installieren und dann:  
 ```
