@@ -22,9 +22,9 @@ Zuerst wird das Repository aktualisiert, der Video-Dummy-Treiber und das X-Windo
 weitere Infos zum xorg-Dummy:  
 https://techoverflow.net/2019/02/23/how-to-run-x-server-using-xserver-xorg-video-dummy-driver-on-ubuntu/  
   
-`adduser cloud`  
+`adduser obs`  
 und ihm root Rechte geben  
-`usermod -aG sudo cloud`  
+`usermod -aG sudo obs`  
 
 ### X-Window konfigurieren ###
 
@@ -108,10 +108,11 @@ Mit der Zeile **Xorg.0.log** wird dir mitgeteilt, dass das Display 0 verwendet w
 NOTE: OpenGL 3.3 or later is required to use OBS Studio on Linux. You can check what version of OpenGL is supported by your system by typing glxinfo | grep "OpenGL" on Terminal.  
 
 Jetzt fehlt noch die komplette GUI, also der Windowmanager, der Displaymanager und die Desktop-Umgebung sowie ein Tool für den Fernzugriff (X11vnc).  
+Dafür kannst du dich jetzt als user obs zusätzlich per ssh auf deinem Server neu anmelden.  
 
 **Variante 1**  
 ```
-sudo apt install x11vnc gnome-shell ubuntu-gnome-desktop autocutsel gnome-core gnome-panel gnome-themes-standard gnome-settings-daemon metacity nautilus gnome-terminal dconf-editor gnome-tweaks yaru-theme-unity yaru-theme-gnome-shell yaru-theme-gtk yaru-theme-icon fonts-ubuntu tmux fonts-emojione
+sudo apt install x11vnc gnome-shell ubuntu-gnome-desktop autocutsel gnome-core gnome-panel gnome-themes-standard gnome-settings-daemon metacity nautilus gnome-terminal dconf-editor gnome-tweaks yaru-theme-unity yaru-theme-gnome-shell yaru-theme-gtk yaru-theme-icon fonts-ubuntu tmux fonts-emojione -y
 ```
 **Variante 2**  
 Bei der noch etwas zusätzliche Software mit installiert wird, wie z.B. LibreOffice, Firefox und Thunderbird sowie paar Spiele:   
@@ -125,7 +126,7 @@ Sparsame kleine Desktopumgebung (Lubuntu ohne Anwendungsprogramme)
 
 Die Installation dauert jeweils paar Minuten.  
 Wenn die Installation fertig ist, den Rechner neu starten:  
-`reboot`  
+`reboot`  oder reicht auch `sudo systemctl restart gdm`??   
 
 ---  
 
