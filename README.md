@@ -75,6 +75,7 @@ EndSection
 
 Als nächstes X-Windows konfigurieren indem du **X** als user root startest    
 und nach kurzer Zeit, sobald die Konfiguration geschrieben wurde und die Ausgabe Zeit stoppt,  mit STRG-C abbrichst:  
+(Im Skript geht das nicht. Deshalb mal testen, ob ich den X-Server mit nohup einfach in einer extra Shell laufen lassen.)
 **`X -config /etc/X11/xorg.conf`**  
 Jetzt kommt so eine Anzeige:  
 ```
@@ -127,6 +128,10 @@ Sparsame kleine Desktopumgebung (Lubuntu ohne Anwendungsprogramme)
 Die Installation dauert jeweils paar Minuten.  
 Wenn die Installation fertig ist, den Rechner neu starten:  
 `reboot`  oder reicht auch `sudo systemctl restart gdm`??   
+mal testen, ob das funktioniert:  
+```
+displaymanager=$( cut -d/ -f4 /etc/X11/default-display-manager )  
+systemctl start $displaymanager
 
 ---  
 
