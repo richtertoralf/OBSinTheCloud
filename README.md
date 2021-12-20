@@ -182,12 +182,12 @@ systemctl status x11vnc.service
 
 Jetzt noch ffmpeg und OBS-Studio installieren:
 ```
-# apt-get install software-properties-common
-# add-apt-repository ppa:obsproject/obs-studio
+#apt-get install software-properties-common
+#add-apt-repository ppa:obsproject/obs-studio
 apt install v4l2loopback-dkms -y
 apt install ffmpeg
 apt install obs-studio
-# damit wird leider nur eine ältere Version von OBS installiert. Muss ich mir noch mal anschauen ;-)
+#damit wird leider nur eine ältere Version von OBS installiert. Muss ich mir noch mal anschauen ;-)
 ```
 
 ### noch paar Infos: ###
