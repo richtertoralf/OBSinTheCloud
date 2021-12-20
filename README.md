@@ -132,7 +132,7 @@ mal testen, ob das funktioniert:
 ```
 displaymanager=$( cut -d/ -f4 /etc/X11/default-display-manager )  
 systemctl start $displaymanager
-
+``` 
 ---  
 
 ## geht das auch mit Debian 11 und xfce? ##
