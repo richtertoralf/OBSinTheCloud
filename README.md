@@ -129,10 +129,9 @@ Section "Screen"
 EndSection
 ```
 
-Als nächstes X-Windows konfigurieren indem du **X** als user root startest    
-und nach kurzer Zeit, sobald die Konfiguration geschrieben wurde und die Ausgabe Zeit stoppt,  mit STRG-C abbrichst:  
-(Im Skript geht das nicht. Deshalb mal testen, ob ich den X-Server mit nohup einfach in einer extra Shell laufen lassen.)
+Als nächstes X-Windows konfigurieren, indem du **X** als user **root** startest und nach kurzer Zeit, sobald die Konfiguration geschrieben wurde und die Ausgabe im Terminal stoppt, mit **STRG-C** abbrichst.  
 **`X -config /etc/X11/xorg.conf`**  
+(Im Skript geht das nicht. Deshalb mal testen, ob ich den X-Server mit nohup einfach in einer extra Shell laufen lassen.)
 Jetzt kommt so eine Anzeige:  
 ```
 X.Org X Server 1.20.11
@@ -159,7 +158,6 @@ Wenn kein anderer X-Server läuft, wird standardmäßig die Anzeigenummer 0 verw
 hier ist sie **(==) Log file: "/var/log/Xorg.0.log", Time: Fri Sep  3 19:12:00 2021**   
 Mit der Zeile **Xorg.0.log** wird dir mitgeteilt, dass das Display 0 verwendet wird, während dir **Xorg.1.log** sagt, dass das Display 1 verwendet wird.  
 
-** 
 
 ## GUI installieren ##
 NOTE: OpenGL 3.3 or later is required to use OBS Studio on Linux. You can check what version of OpenGL is supported by your system by typing glxinfo | grep "OpenGL" on Terminal.  
