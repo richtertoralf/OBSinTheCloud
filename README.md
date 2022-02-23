@@ -26,7 +26,7 @@ und ihm root Rechte geben
 ### X-Window konfigurieren ###
 
 Da unser ausgewählter virtueller Server über keine Grafikarte und auch keinen Bildschirm verfügt, müssen wir diese simulieren und konfigurieren. Mit den folgenden Einstellungen in der Konfigurationsdatei wird ein Monitor erstellt/simuliert, der mit einer Bildwiederholfrequenz von genau 60 Hz läuft. Dies ist wichtig für OBS, um qualitativ hochwertige Aufnahmen von Videostreams mit 1080p und 30 oder 60 Hz zu erstellen!  
-Dafür hat X-Windows die Konfigurationsdatei **/etc/X11/xorg.conf**, die folgenden Inhalt haben sollte (Danke an Martin Sauter):  
+Dafür hat X-Windows die Konfigurationsdatei **/etc/X11/xorg.conf**, die folgenden Inhalt haben sollte:  
 
 `nano /etc/X11/xorg.conf`    
 
