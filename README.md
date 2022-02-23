@@ -18,9 +18,6 @@ Zuerst wird das Repository aktualisiert, der Video-Dummy-Treiber und das X-Windo
 
 `apt update -y && apt upgrade -y`  
 `apt install xserver-xorg-video-dummy -y`  
-
-weitere Infos zum xorg-Dummy:  
-https://techoverflow.net/2019/02/23/how-to-run-x-server-using-xserver-xorg-video-dummy-driver-on-ubuntu/  
   
 `adduser obs`  
 und ihm root Rechte geben  
@@ -252,6 +249,8 @@ apt install obs-studio
 ### noch paar Infos: ###
 x11vnc Passwort ändern: `x11vnc -storepasswd`  
 x11vnc starten:  `x11vnc -auth /run/user/root/gdm/Xauthority -usepw -forever -repeat -display :0`  
+
+>Debian hat den Nachteil, das sich OBS nur in älteren Versionen über den Paktemanager installieren lässt. Ubuntu basiert zwar auch auf Debian, bringt aber von Haus aus deutlich aktuellere Software mit. Deswegen werde ich Ubuntu nutzen!  
 
 ---  
 
