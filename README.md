@@ -233,8 +233,7 @@ systemctl start x11vnc.service
 systemctl status x11vnc.service
 ```
 
->Diese Variante ist aus Sicherheitsgründen nicht zu empfehlen, da du dann auch per VNC Viewer immer als user root unterwegs bist. Außerdem wird kein VNC-Passwort abgefragt. Diese Variante kann aber Sinn machen, wenn so eine virtuelle Maschine mal schnell, nur für wenige Stunden erzeugt, genutzt und dann wieder gelöscht wird.  
->Auf Sicherheitsaspekte bin ich hier nicht weiter eingegangen.  
+>Diese Variante ist aus Sicherheitsgründen nicht zu empfehlen, da du dann auch per VNC Viewer immer als user root unterwegs bist. Außerdem wird kein VNC-Passwort abgefragt. Diese Variante macht auch keinen Sinn, wenn so eine virtuelle Maschine mal schnell, nur für wenige Stunden erzeugt, genutzt und dann wieder gelöscht wird, denn bereits nach wenigen Minuten wird deine Maschine von Boots gescannt und angegriffen.   
 
 Jetzt noch ffmpeg und OBS-Studio installieren:
 ```
@@ -243,14 +242,13 @@ Jetzt noch ffmpeg und OBS-Studio installieren:
 apt install v4l2loopback-dkms -y
 apt install ffmpeg
 apt install obs-studio
-#damit wird leider nur eine ältere Version von OBS installiert. Muss ich mir noch mal anschauen ;-)
+#Bei Debian wird (01/2022) auf diese Weise leider nur eine ältere Version von OBS installiert. 
 ```
+>Debian hat den Nachteil, das sich OBS nur in älteren Versionen über den Paktemanager installieren lässt. Ubuntu basiert zwar auch auf Debian, bringt aber von Haus aus deutlich aktuellere Software mit. Deswegen werde ich Ubuntu nutzen!  
 
 ### noch paar Infos: ###
 x11vnc Passwort ändern: `x11vnc -storepasswd`  
 x11vnc starten:  `x11vnc -auth /run/user/root/gdm/Xauthority -usepw -forever -repeat -display :0`  
-
->Debian hat den Nachteil, das sich OBS nur in älteren Versionen über den Paktemanager installieren lässt. Ubuntu basiert zwar auch auf Debian, bringt aber von Haus aus deutlich aktuellere Software mit. Deswegen werde ich Ubuntu nutzen!  
 
 ---  
 
