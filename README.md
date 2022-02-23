@@ -73,6 +73,65 @@ Section "Screen"
 EndSection
 ```
 
+OBS macht aber mit zwei Monitoren (Studio-Ansicht und Multiview-Ansicht) mehr Spaß.
+Das grundlegende Verfahren besteht darin, einen „Monitor“-Abschnitt pro Monitor zu definieren und dann alles in einem „Device“-Abschnitt zusammenzufassen, der den Videochip angibt, der die Monitore ansteuert.  
+Dazu habe ich hier paar Infos gefunden: https://wiki.archlinux.org/title/Multihead  
+
+ungetestete Variante für zwei gleiche Monitore an einer Grafikkarte: `xorg.conf`  
+```
+#Virtual Display of 1920x1080 pixels
+ 
+Section "Device"
+  Identifier "dummy_videocard"
+  Driver "dummy"
+  Option "ConstantDPI" "true"
+  #VideoRam 4096000
+  #VideoRam 256000
+  VideoRam 192000
+EndSection
+
+Section "Monitor"
+  Identifier "dummy_monitor_1"
+  HorizSync   5.0 - 1000.0
+  VertRefresh 5.0 - 200.0
+  Modeline "1920x1080_60.00" 172.80 1920 2040 2248 2576 1080 1081 1084 1118 -HSync +Vsync
+  Option "Primary" "true"
+  Option "LeftOf" "dummy_monitor_2"
+EndSection
+
+Section "Monitor"
+  Identifier "dummy_monitor_2"
+  HorizSync   5.0 - 1000.0
+  VertRefresh 5.0 - 200.0
+  Modeline "1920x1080_60.00" 172.80 1920 2040 2248 2576 1080 1081 1084 1118 -HSync +Vsync
+  Option "RightOf" "dummy_monitor_1"
+EndSection
+
+Section "Screen"
+  Identifier "dummy_screen_1"
+    Device "dummy_videocard"
+    Monitor "dummy_monitor_1"
+    DefaultDepth 24
+    SubSection "Display"
+        Viewport 0 0
+        Depth 24
+        Virtual 1920 1080
+    EndSubSection
+EndSection
+
+Section "Screen"
+  Identifier "dummy_screen_2"
+    Device "dummy_videocard"
+    Monitor "dummy_monitor_2"
+    DefaultDepth 24
+    SubSection "Display"
+        Viewport 0 0
+        Depth 24
+        Virtual 1920 1080
+    EndSubSection
+EndSection
+```
+
 Als nächstes X-Windows konfigurieren indem du **X** als user root startest    
 und nach kurzer Zeit, sobald die Konfiguration geschrieben wurde und die Ausgabe Zeit stoppt,  mit STRG-C abbrichst:  
 (Im Skript geht das nicht. Deshalb mal testen, ob ich den X-Server mit nohup einfach in einer extra Shell laufen lassen.)
