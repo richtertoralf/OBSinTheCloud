@@ -158,6 +158,7 @@ Wenn kein anderer X-Server läuft, wird standardmäßig die Anzeigenummer 0 verw
 hier ist sie **(==) Log file: "/var/log/Xorg.0.log", Time: Fri Sep  3 19:12:00 2021**   
 Mit der Zeile **Xorg.0.log** wird dir mitgeteilt, dass das Display 0 verwendet wird, während dir **Xorg.1.log** sagt, dass das Display 1 verwendet wird.  
 
+## Sprache einstellen ##
 
 ## GUI installieren ##
 >Achtung: OBS Studio benötigt OpenGL 3.3 oder höher für Linux. Du kannst die Version von OpenGL deines Systems überprüfen, indem du `glxinfo | grep "OpenGL"` im Terminal eingibst. Dazu musst du vorher aber noch die mesa-utils installieren: `apt install mesa-utils`.  
@@ -166,11 +167,12 @@ Jetzt fehlt noch die komplette GUI, also der Windowmanager, der Displaymanager u
 Dafür kannst du dich jetzt als user obs zusätzlich per ssh auf deinem Server neu anmelden.  
 
 **Variante 1**  
+Dabei werden z.B. Firefox, LibreOffice und Thunderbird mitinstalliert.
 ```
 sudo apt install x11vnc gnome-shell ubuntu-gnome-desktop autocutsel gnome-core gnome-panel gnome-themes-standard gnome-settings-daemon metacity nautilus gnome-terminal dconf-editor gnome-tweaks yaru-theme-unity yaru-theme-gnome-shell yaru-theme-gtk yaru-theme-icon fonts-ubuntu tmux fonts-emojione -y
 ```
 **Variante 2**  
-Bei der noch etwas zusätzliche Software mit installiert wird, wie z.B. LibreOffice, Firefox und Thunderbird sowie paar Spiele:   
+Bei der noch etwas zusätzliche Software mit installiert wird, wie z.B. LibreOffice, Firefox und Thunderbird sowie paar Spiele ... entspricht Variante 1 (??):   
 ```
 apt install ubuntu-desktop --no-install-recommends -y
 apt install x11vnc -y
@@ -180,6 +182,8 @@ Sparsame kleine Desktopumgebung (Lubuntu ohne Anwendungsprogramme)
 `apt install x11vnc lightdm lxde-core`  
 
 Die Installation dauert jeweils paar Minuten.  
+
+## reboot ##
 Wenn die Installation fertig ist, den Rechner neu starten:  
 `reboot`  oder reicht auch `sudo systemctl restart gdm`??   
 mal testen, ob das funktioniert:  
@@ -324,6 +328,7 @@ cloud@ubuntu-32gb-fsn1-2:~$ sudo x11vnc -auth /run/user/1000/gdm/Xauthority -use
 ```
 **Lösung:**
 Rufe zuerst mit dem VNC-Viewer den "root-Bildschirm" auf: "deine Server IP":5900  
+**Achtung: In der Firewall müssen die Ports 5900 und 5901 offen !**  
 (siehe "Vom Windows Client mit dem Server verbinden")  
 Ich habe mich verbinden und anmelden können. Dann kam aber ein leerer Bildschirm, da für den user cloud noch kein x11vnc Server gestartet wurde.  
 Melde dich wieder ab und starte jetzt als user cloud im Terminal den x11server  
@@ -347,6 +352,7 @@ zuerst ffmpeg installieren und dann:
 ```
 sudo apt install v4l2loopback-dkms -y
 sudo add-apt-repository ppa:obsproject/obs-studio -y
+# sudo apt update -y
 sudo apt install obs-studio -y
 ``` 
 ## Google Chrome installieren ##
