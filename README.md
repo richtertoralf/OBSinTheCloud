@@ -160,7 +160,7 @@ Mit der Zeile **Xorg.0.log** wird dir mitgeteilt, dass das Display 0 verwendet w
 
 
 ## GUI installieren ##
-NOTE: OpenGL 3.3 or later is required to use OBS Studio on Linux. You can check what version of OpenGL is supported by your system by typing glxinfo | grep "OpenGL" on Terminal.  
+>Achtung: OBS Studio benötigt OpenGL 3.3 oder höher für Linux. Du kannst die Version von OpenGL deines Systems überprüfen, indem du `glxinfo | grep "OpenGL"` im Terminal eingibst. Dazu musst du vorher aber noch die mesa-utils installieren: `apt install mesa-utils`.  
 
 Jetzt fehlt noch die komplette GUI, also der Windowmanager, der Displaymanager und die Desktop-Umgebung sowie ein Tool für den Fernzugriff (X11vnc).  
 Dafür kannst du dich jetzt als user obs zusätzlich per ssh auf deinem Server neu anmelden.  
