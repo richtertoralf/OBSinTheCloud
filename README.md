@@ -355,6 +355,16 @@ sudo add-apt-repository ppa:obsproject/obs-studio -y
 # sudo apt update -y
 sudo apt install obs-studio -y
 ``` 
+In der Cloud bei Hetzner funktioniert so allerdings die "Virtuelle Kamera" noch nicht. Die Schaltfläche "Virtuelle Kamera" wird zwar angezeigt, beim Draufklicken öffnet sich ein Fenster mit einer Passwortabfrage, mehr passiert aber nicht. Im Log sehe ich folgende Fehlermeldung:  
+`modprobe: ERROR: could not insert 'v4l2loopback': Unknown symbol in module, or unknown parameter (see dmesg)`  
+Lösung:  
+```
+# OBS beenden und dann:  
+sudo apt -y install v4l2loopback-dkms v4l2loopback-utils linux-modules-extra-$(uname -r)  
+sudo modprobe v4l2loopback
+```
+Jetzt läuft auch die "Virtuelle Kamera".  
+
 ## Google Chrome installieren ##
 ```
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb  
