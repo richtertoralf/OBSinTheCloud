@@ -195,7 +195,7 @@ Wenn die Installation fertig ist, den Rechner neu starten:
 mal testen, ob das funktioniert:  
 ```
 displaymanager=$( cut -d/ -f4 /etc/X11/default-display-manager )  
-systemctl start $displaymanager
+systemctl restart $displaymanager
 ``` 
 ---  
 
