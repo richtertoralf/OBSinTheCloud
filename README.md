@@ -21,7 +21,7 @@ Zuerst wird das Repository aktualisiert, der Video-Dummy-Treiber und das X-Windo
   
 `adduser obs`  
 und ihm root Rechte geben  
-`usermod -aG sudo obs`  
+`usermod -aG sudo snowgames`  
 
 ### X-Window konfigurieren ###
 
