@@ -127,6 +127,12 @@ Section "Screen"
         Virtual 1920 1080
     EndSubSection
 EndSection
+
+Section "ServerLayout"
+    Identifier "Main Layout"
+    Screen 1 "dummy_screen_1"
+    Screen 2 "dummy_screen_2"
+EndSection
 ```
 
 Als nächstes X-Windows konfigurieren, indem du **X** als user **root** startest und nach kurzer Zeit, sobald die Konfiguration geschrieben wurde und die Ausgabe im Terminal stoppt, mit **STRG-C** abbrichst.  
