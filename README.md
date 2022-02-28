@@ -22,7 +22,7 @@ Nach der Buchung des Servers mit Ubuntu, zuerst das Repository aktualisieren, de
   
 `adduser obs`  
 und ihm root Rechte geben  
-`usermod -aG sudo snowgames`  
+`usermod -aG sudo obs`  
 
 ### X11 konfigurieren ###
 
@@ -166,6 +166,7 @@ hier ist sie **(==) Log file: "/var/log/Xorg.0.log", Time: Fri Sep  3 19:12:00 2
 Mit der Zeile **Xorg.0.log** wird dir mitgeteilt, dass das Display 0 verwendet wird, während dir **Xorg.1.log** sagt, dass das Display 1 verwendet wird.  
 
 ## Sprache einstellen ##
+`locale-gen de_DE.UTF-8`  
 
 ## GUI installieren ##
 >Achtung: OBS Studio benötigt OpenGL 3.3 oder höher für Linux. Du kannst die Version von OpenGL deines Systems überprüfen, indem du `glxinfo | grep "OpenGL"` im Terminal eingibst. Dazu musst du vorher aber noch die mesa-utils installieren: `apt install mesa-utils`.  
@@ -174,7 +175,8 @@ Jetzt fehlt noch die komplette GUI, also der Windowmanager, der Displaymanager u
 Dafür kannst du dich jetzt als user obs zusätzlich per ssh auf deinem Server neu anmelden.  
 
 **Variante**  
-sudo apt install gnome-session gnome-terminal 
+apt install gnome-session gnome-terminal -y
+apt install x11vnc -y
 
 **Variante 1**  
 Dabei werden z.B. Firefox, LibreOffice und Thunderbird mitinstalliert.
@@ -317,7 +319,7 @@ Wenn alles klappt, erhältst du solche Meldungen:
 Herzlichen Glückwunsch. Damit läuft x11vnc für den User root.
 Du musst aber auch noch für den user cloud x11vnc starten!  
 
-**Melde dich jetzt in einem neuen Terminal per SSH als user cloud auf dem Server an.**  
+**Melde dich jetzt in einem neuen Terminal per SSH als user obs auf dem Server an.**  
 Mit `echo $UID` ermittelst du deine User ID.   
 In meinem Fall 1000. Diese 1000 fügst du in der folgenden Zeile ein und startest damit x11vnc als user cloud:  
 `sudo x11vnc -auth /run/user/1000/gdm/Xauthority -usepw -forever -repeat -display :1`  
@@ -382,12 +384,12 @@ Jetzt läuft auch die "Virtuelle Kamera".
 ## Google Chrome installieren ##
 ```
 wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb  
-sudo apt install ./google-chrome-stable_current_amd64.deb  
+sudo apt install ./google-chrome-stable_current_amd64.deb -y  
 ```
 
 ## TeamViewer installieren ##
 ```
 wget https://download.teamviewer.com/download/linux/teamviewer_amd64.deb  
-sudo apt install ./teamviewer_amd64.deb  
+sudo apt install ./teamviewer_amd64.deb -y  
 
 ```
