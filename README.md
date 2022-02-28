@@ -4,17 +4,18 @@ OBS Studio in the cloud
 > OBS in der Cloud bietet mir einige Vorteile, wenn ich z.B. bei Outdoor-Sportveranstaltungen, wie Radrennen, Motorsportveranstaltungen oder Skilanglaufmarathons, Videostreams mit mobilen Kameras mit 4G-Encodern produziere. Der Schnitt und die Produktion des fertigen Programms kann dann ortsunabhängig, von einem kleinen Rechner aus, in der Cloud erfolgen.
 
 ## Grundinstallation ##
-### Ubuntu ###
-Zuerst z.B. bei Hetzner einen virtuellen Server mieten.
+### Ubuntu 20.04 ###
+#### Server ohne GPU ####
+Eine sehr einfache Lösung: miete bei Hetzner einen virtuellen Server.
 Damit hat es funktioniert:
-Intel Xeon, CX51, 8VCPU´s, 32 GB RAM, 240 GB Disk Lokal, 35,58 Euro monatlich  
-mit Ubuntu 20.04  
-Warum Linux und nicht Windows? 
+Intel Xeon, CX51, 8VCPU´s, 32 GB RAM, 240 GB Disk Lokal mit Ubuntu 20.04  
+Aber auch andere Varianten mit AMD Prozessoren habe ich getestet und funktionieren. Da Hetzner aktuell (02/2022) keine Server mit GPU anbietet, müssen wir die fehlende Grafikkarte mit vielen CPU-Kernen ersetzen. Wenn ich Full-HD (1080p) Streams mit 30 fps bearbeiten und weiterleiten will, benötige ich 32 Kerne und trotzdem werden immer wieder mal paar Frames fallen gelassen. Also testen, testen und testen.   
+#### Warum Linux und nicht Windows? ####
 - Kostenreduzierung (keine Lizenzkosten)
 - effektivere Auslastung der Hardware  
-8 vCPUs müssten für für 1920x1080p-Streaming und -Aufzeichnung funktionieren  
- 
-Zuerst wird das Repository aktualisiert, der Video-Dummy-Treiber und das X-Windows-System installiert und ein neuer Benutzer zur Verwendung in der GUI wie folgt erstellt:
+
+### xserver-xorg-video-dummy ###
+Nach der Buchung des Servers mit Ubuntu, zuerst das Repository aktualisieren, den Video-Dummy-Treiber und das X-Windows-System installieren und einen neuen Benutzer zur Verwendung in der GUI wie folgt erstellen:
 
 `apt update -y && apt upgrade -y`  
 `apt install xserver-xorg-video-dummy -y`  
@@ -23,7 +24,7 @@ Zuerst wird das Repository aktualisiert, der Video-Dummy-Treiber und das X-Windo
 und ihm root Rechte geben  
 `usermod -aG sudo snowgames`  
 
-### X-Window konfigurieren ###
+### X11 konfigurieren ###
 
 Da unser ausgewählter virtueller Server über keine Grafikarte und auch keinen Bildschirm verfügt, müssen wir diese simulieren und konfigurieren. Mit den folgenden Einstellungen in der Konfigurationsdatei wird ein Monitor erstellt/simuliert, der mit einer Bildwiederholfrequenz von genau 60 Hz läuft. Dies ist wichtig für OBS, um qualitativ hochwertige Aufnahmen von Videostreams mit 1080p und 30 oder 60 Hz zu erstellen!  
 Dafür hat X-Windows die Konfigurationsdatei **/etc/X11/xorg.conf**, die folgenden Inhalt haben sollte:  
@@ -74,7 +75,7 @@ OBS macht aber mit zwei Monitoren (Studio-Ansicht und Multiview-Ansicht) mehr Sp
 Das grundlegende Verfahren besteht darin, einen „Monitor“-Abschnitt pro Monitor zu definieren und dann alles in einem „Device“-Abschnitt zusammenzufassen, der den Videochip angibt, der die Monitore ansteuert.  
 Dazu habe ich hier paar Infos gefunden: https://wiki.archlinux.org/title/Multihead  
 
-ungetestete Variante für zwei gleiche Monitore an einer Grafikkarte: `xorg.conf`  
+Variante für zwei gleiche Monitore an einer Grafikkarte: `xorg.conf`, die aber so nicht funktioniert:    
 ```
 #Virtual Display of 1920x1080 pixels
  
@@ -171,6 +172,9 @@ Mit der Zeile **Xorg.0.log** wird dir mitgeteilt, dass das Display 0 verwendet w
 
 Jetzt fehlt noch die komplette GUI, also der Windowmanager, der Displaymanager und die Desktop-Umgebung sowie ein Tool für den Fernzugriff (X11vnc).  
 Dafür kannst du dich jetzt als user obs zusätzlich per ssh auf deinem Server neu anmelden.  
+
+**Variante**  
+sudo apt install gnome-session gnome-terminal 
 
 **Variante 1**  
 Dabei werden z.B. Firefox, LibreOffice und Thunderbird mitinstalliert.
@@ -350,6 +354,10 @@ Ich habe den RealVNC Viewer installiert.
 Starte den VNC Viewer mit "deiner Server IP":5901   
 5901 ist der Standartport für Display 1, also das Display vom user cloud.  
 Hat bei mir funktioniert. Mein Server hat jetzt eine GUI und ich kann per VNC darauf zugreifen  
+
+## Pulseaudio ##
+Wir brauchen auch Audio für die OBS-Aufnahme. PulseAudio-System funktioniert auch dann gut, wenn keine physische Soundkarte vorhanden ist.   
+`sudo apt install pulseaudio jackd2 alsa-utils dbus-x11`  
 
 ## OBS installieren ##
 https://obsproject.com/wiki/install-instructions  
