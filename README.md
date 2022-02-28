@@ -176,6 +176,7 @@ Dafür kannst du dich jetzt als user obs zusätzlich per ssh auf deinem Server n
 
 **Variante**  
 apt install gnome-session gnome-terminal -y
+apt install nautilus 
 apt install x11vnc -y
 
 **Variante 1**  
