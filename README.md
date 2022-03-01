@@ -38,7 +38,8 @@ Dafür hat X-Windows die Konfigurationsdatei **/etc/X11/xorg.conf**, die folgend
 # https://www.xpra.org/xorg.conf
 
 # Here we setup a Virtual Display of 1920x1080 pixels
- 
+
+# Grafikkarte
 Section "Device"
   Identifier "dummy_videocard"
   Driver "dummy"
@@ -48,6 +49,7 @@ Section "Device"
   VideoRam 192000
 EndSection
 
+# Monitor
 Section "Monitor"
   Identifier "dummy_monitor"
   HorizSync   5.0 - 1000.0
@@ -58,6 +60,7 @@ Section "Monitor"
   Modeline "1920x1080_60.00" 172.80 1920 2040 2248 2576 1080 1081 1084 1118 -HSync +Vsync
 EndSection
 
+# Zuordnung Grafikkarte und Monitor
 Section "Screen"
   Identifier "dummy_screen"
     Device "dummy_videocard"
@@ -77,62 +80,50 @@ Dazu habe ich hier paar Infos gefunden: https://wiki.archlinux.org/title/Multihe
 
 Variante für zwei gleiche Monitore an einer Grafikkarte: `xorg.conf`, die aber so nicht funktioniert:    
 ```
-#Virtual Display of 1920x1080 pixels
- 
+# zwei Virtuelle Displays mit jeweils 1920x1080 Pixel
+# Screengröße ist damit 3840 x 1080 Pixel
+
+
+# Grafikkarte
 Section "Device"
   Identifier "dummy_videocard"
   Driver "dummy"
   Option "ConstantDPI" "true"
-  #VideoRam 4096000
+  VideoRam 4096000
   #VideoRam 256000
-  VideoRam 192000
+  #VideoRam 192000
+  Option "Monitor-Left" "left_monitor"
+  Option "Monitor-Right" "right_monitor"
 EndSection
 
+# Monitore 
 Section "Monitor"
-  Identifier "dummy_monitor_1"
+  Identifier "left_monitor"
   HorizSync   5.0 - 1000.0
   VertRefresh 5.0 - 200.0
   Modeline "1920x1080_60.00" 172.80 1920 2040 2248 2576 1080 1081 1084 1118 -HSync +Vsync
   Option "Primary" "true"
-  Option "LeftOf" "dummy_monitor_2"
+  Option "LeftOf" "right_monitor"
 EndSection
 
 Section "Monitor"
-  Identifier "dummy_monitor_2"
+  Identifier "right_monitor"
   HorizSync   5.0 - 1000.0
   VertRefresh 5.0 - 200.0
   Modeline "1920x1080_60.00" 172.80 1920 2040 2248 2576 1080 1081 1084 1118 -HSync +Vsync
-  Option "RightOf" "dummy_monitor_1"
+  #Option "RightOf" "left_monitor"
 EndSection
 
+# Grafikkarte und Monitore
 Section "Screen"
-  Identifier "dummy_screen_1"
+  Identifier "dummy_screen"
     Device "dummy_videocard"
-    Monitor "dummy_monitor_1"
     DefaultDepth 24
     SubSection "Display"
         Viewport 0 0
         Depth 24
-        Virtual 1920 1080
+        Virtual 3840 1080
     EndSubSection
-EndSection
-
-Section "Screen"
-  Identifier "dummy_screen_2"
-    Device "dummy_videocard"
-    Monitor "dummy_monitor_2"
-    DefaultDepth 24
-    SubSection "Display"
-        Viewport 0 0
-        Depth 24
-        Virtual 1920 1080
-    EndSubSection
-EndSection
-
-Section "ServerLayout"
-    Identifier "Main Layout"
-    Screen 1 "dummy_screen_1"
-    Screen 2 "dummy_screen_2"
 EndSection
 ```
 
