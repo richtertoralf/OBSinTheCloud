@@ -24,10 +24,10 @@ Nach der Buchung des Servers mit Ubuntu, zuerst das Repository aktualisieren, de
 und ihm root Rechte geben  
 `usermod -aG sudo obs`  
 
-### X11 konfigurieren ###
+### X11-Server konfigurieren ###
 
 Da unser ausgewählter virtueller Server über keine Grafikarte und auch keinen Bildschirm verfügt, müssen wir diese simulieren und konfigurieren. Mit den folgenden Einstellungen in der Konfigurationsdatei wird ein Monitor erstellt/simuliert, der mit einer Bildwiederholfrequenz von genau 60 Hz läuft. Dies ist wichtig für OBS, um qualitativ hochwertige Aufnahmen von Videostreams mit 1080p und 30 oder 60 Hz zu erstellen!  
-Dafür hat X-Windows die Konfigurationsdatei **/etc/X11/xorg.conf**, die folgenden Inhalt haben sollte:  
+Dafür gibt es die Konfigurationsdatei **/etc/X11/xorg.conf**, die folgenden Inhalt haben sollte:  
 
 `nano /etc/X11/xorg.conf`    
 
@@ -39,7 +39,7 @@ Dafür hat X-Windows die Konfigurationsdatei **/etc/X11/xorg.conf**, die folgend
 
 # Here we setup a Virtual Display of 1920x1080 pixels
 
-# Grafikkarte
+# Konfiguration der Grafikkarte
 Section "Device"
   Identifier "dummy_videocard"
   Driver "dummy"
@@ -49,7 +49,7 @@ Section "Device"
   VideoRam 192000
 EndSection
 
-# Monitor
+# Monitordaten
 Section "Monitor"
   Identifier "dummy_monitor"
   HorizSync   5.0 - 1000.0
@@ -60,7 +60,7 @@ Section "Monitor"
   Modeline "1920x1080_60.00" 172.80 1920 2040 2248 2576 1080 1081 1084 1118 -HSync +Vsync
 EndSection
 
-# Zuordnung Grafikkarte und Monitor
+# Zuordnung Grafikkarte und Monitor / Bildschirmauflösung
 Section "Screen"
   Identifier "dummy_screen"
     Device "dummy_videocard"
@@ -79,7 +79,7 @@ Das grundlegende Verfahren besteht darin, einen „Monitor“-Abschnitt pro Moni
 Dazu habe ich hier paar Infos gefunden: https://wiki.archlinux.org/title/Multihead  
 und hier: https://wiki.ubuntu.com/X/Config/Resolution#How_to_setup_a_dual_monitor  
 
-Variante für zwei gleiche Monitore an einer Grafikkarte: `xorg.conf`, die ich aber noch nicht getestet habe:      
+Variante für zwei gleiche Monitore an einer Grafikkarte: `xorg.conf`, die ich gerade erstellt aber noch nicht getestet habe:      
 ```
 # zwei Virtuelle Displays mit jeweils 1920x1080 Pixel
 # Screengröße ist damit 3840 x 1080 Pixel
@@ -89,7 +89,7 @@ Section "ServerLayout"
         Screen          "dummy_screen"
 EndSection
 
-# Grafikkarte
+# Konfiguration der Grafikkarte
 Section "Device"
   Identifier "dummy_videocard"
   Driver "dummy"
@@ -101,7 +101,7 @@ Section "Device"
   Option "Monitor-Right" "right_monitor"
 EndSection
 
-# Monitore 
+# Monitordaten
 Section "Monitor"
   Identifier "left_monitor"
   HorizSync   5.0 - 1000.0
@@ -119,7 +119,7 @@ Section "Monitor"
   #Option "RightOf" "left_monitor"
 EndSection
 
-# Grafikkarte und Monitore
+# Grafikkarte und Monitore / Bildschirmauflösung
 Section "Screen"
   Identifier "dummy_screen"
     Device "dummy_videocard"
@@ -132,7 +132,7 @@ Section "Screen"
 EndSection
 ```
 
-Als nächstes X-Windows konfigurieren, indem du **X** als user **root** startest und nach kurzer Zeit, sobald die Konfiguration geschrieben wurde und die Ausgabe im Terminal stoppt, mit **STRG-C** abbrichst.  
+Als nächstes X-Window konfigurieren, indem du **X** als user **root** startest und nach kurzer Zeit, sobald die Konfiguration gemäß unserer xorg.conf geschrieben wurde und die Ausgabe im Terminal stoppt, mit **STRG-C** abbrichst.  
 **`X -config /etc/X11/xorg.conf`**  
 (Im Skript geht das nicht. Deshalb mal testen, ob ich den X-Server mit nohup einfach in einer extra Shell laufen lassen.)
 Jetzt kommt so eine Anzeige:  
