@@ -1,6 +1,7 @@
 # OBSinTheCloud
 OBS Studio in the cloud  
 **inspiriert von Martin Sauters Blog https://blog.wirelessmoves.com/2021/07/running-obs-studio-in-the-cloud.html**  
+
 > OBS in der Cloud bietet mir einige Vorteile, wenn ich z.B. bei Outdoor-Sportveranstaltungen, wie Radrennen, Motorsportveranstaltungen oder Skilanglaufmarathons, Videostreams mit mobilen Kameras mit 4G-Encodern produziere. Der Schnitt und die Produktion des fertigen Programms kann dann ortsunabhängig, von einem kleinen Rechner aus, in der Cloud erfolgen.
 
 ## Grundinstallation ##
@@ -170,22 +171,22 @@ Mit der Zeile **Xorg.0.log** wird dir mitgeteilt, dass das Display 0 verwendet w
 Jetzt fehlt noch die komplette GUI, also der Windowmanager, der Displaymanager und die Desktop-Umgebung sowie ein Tool für den Fernzugriff (X11vnc).  
 Dafür kannst du dich jetzt als user obs zusätzlich per ssh auf deinem Server neu anmelden.  
 
-**Variante**  
-apt install gnome-session gnome-terminal -y
-apt install nautilus 
-apt install x11vnc -y
+Hier teste ich noch, welcher Desktop am besten mit OBS-Studio harmoniert ;-)  
 
-**Variante 1**  
+**Minimalvariante mit Gnome**  
+```
+apt install gnome-session gnome-terminal  
+apt install nautilus  
+apt install x11vnc  
+```
+**Variante 1 / Gnome im Ubuntu-Style**  
 Dabei werden z.B. Firefox, LibreOffice und Thunderbird mitinstalliert.
 ```
 sudo apt install x11vnc gnome-shell ubuntu-gnome-desktop autocutsel gnome-core gnome-panel gnome-themes-standard gnome-settings-daemon metacity nautilus gnome-terminal dconf-editor gnome-tweaks yaru-theme-unity yaru-theme-gnome-shell yaru-theme-gtk yaru-theme-icon fonts-ubuntu tmux fonts-emojione -y
 ```
 **Variante 2**  
 Bei der noch etwas zusätzliche Software mit installiert wird, wie z.B. LibreOffice, Firefox und Thunderbird sowie paar Spiele ... entspricht Variante 1 (??):   
-```
-apt install ubuntu-desktop --no-install-recommends -y
-apt install x11vnc -y
-```
+`apt install ubuntu-desktop --no-install-recommends x11vnc`  
 **Variante 3**  
 Sparsame kleine Desktopumgebung (Lubuntu ohne Anwendungsprogramme)  
 `apt install x11vnc lightdm lxde-core`  
@@ -194,11 +195,12 @@ Die Installation dauert jeweils paar Minuten.
 
 ## reboot ##
 Wenn die Installation fertig ist, den Rechner neu starten:  
-`reboot`  oder reicht auch `sudo systemctl restart gdm`??   
+`reboot`  oder reicht auch `sudo systemctl restart gdm3` oder `lightdm` ?   
 mal testen, ob das funktioniert:  
 ```
 displaymanager=$( cut -d/ -f4 /etc/X11/default-display-manager )  
 systemctl restart $displaymanager
+# oder stop und start
 ``` 
 ---  
 
@@ -255,9 +257,9 @@ apt install ffmpeg
 apt install obs-studio
 #Bei Debian wird (01/2022) auf diese Weise leider nur eine ältere Version von OBS installiert. 
 ```
->Debian hat den Nachteil, das sich OBS nur in älteren Versionen über den Paktemanager installieren lässt. Ubuntu basiert zwar auch auf Debian, bringt aber von Haus aus deutlich aktuellere Software mit. Deswegen werde ich Ubuntu nutzen!  
+>Debian hat den Nachteil, das sich OBS nur in älteren Versionen über den Paktemanager installieren lässt. Ubuntu basiert zwar auch auf Debian, bringt aber von Haus aus deutlich aktuellere Software mit. Deswegen nutze ich aktuell Ubuntu.  
 
-### noch paar Infos: ###
+### noch paar Infos am Rande: ###
 x11vnc Passwort ändern: `x11vnc -storepasswd`  
 x11vnc starten:  `x11vnc -auth /run/user/root/gdm/Xauthority -usepw -forever -repeat -display :0`  
 
