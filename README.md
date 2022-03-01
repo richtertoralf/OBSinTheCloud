@@ -83,6 +83,10 @@ Variante für zwei gleiche Monitore an einer Grafikkarte: `xorg.conf`, die aber 
 # zwei Virtuelle Displays mit jeweils 1920x1080 Pixel
 # Screengröße ist damit 3840 x 1080 Pixel
 
+Section "ServerLayout"
+        Identifier      "Default Layout"
+        Screen          "dummy_screen"
+EndSection
 
 # Grafikkarte
 Section "Device"
