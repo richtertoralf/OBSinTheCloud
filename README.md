@@ -87,7 +87,7 @@ und
 # 1920x1080 @ 60.00 Hz (GTF) hsync: 67.08 kHz; pclk: 172.80 MHz
 Modeline "1920x1080_60.00"  172.80  1920 2040 2248 2576  1080 1081 1084 1118  -HSync +Vsync
 ```
-CTV ist ein etwas neuerer Standart.  
+CTV ist ein etwas neuerer Standart. Das VESA-Standardisierungsgremium hat Anfang 2003 den Video-Timing-Standard GTF (General Timing Formula) durch den CVT-Standard (Coordinated Video Timings) ersetzt.    
 
 OBS macht aber mit zwei Monitoren (Studio-Ansicht und Multiview-Ansicht) mehr Spaß.
 Es gibt verschiedene Möglichkeiten. Ich definiere eine Dummy-Grafikkarte und zwei Dummy-Monitore in der xorg.conf und in der "Section Screen" gebe ich die Auflösung für zwei Full-HD Bildschirme nebeneinander, also zweimal 1920 Pixel Breite und 1080 Pixel Höhe an.  
