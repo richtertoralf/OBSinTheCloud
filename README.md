@@ -76,7 +76,7 @@ EndSection
 ```
 
 OBS macht aber mit zwei Monitoren (Studio-Ansicht und Multiview-Ansicht) mehr Spaß.
-Das grundlegende Verfahren besteht darin, einen „Monitor“-Abschnitt pro Monitor zu definieren und dann alles in einem „Device“-Abschnitt zusammenzufassen, der den Videochip angibt, der die Monitore ansteuert.  
+Es gibt verschiedene Möglichkeiten. Ich definiere eine Dummy-Grafikkarte und zwei Dummy-Monitore in der xorg.conf und in der "Section Screen" gebe ich die Auflösung für zwei Full-HD Bildschirme nebeneinander, also zweimal 1920 Pixel Breite und 1080 Pixel Höhe an.  
 Dazu habe ich hier paar Infos gefunden: https://wiki.archlinux.org/title/Multihead  
 und hier: https://wiki.ubuntu.com/X/Config/Resolution#How_to_setup_a_dual_monitor  
 
