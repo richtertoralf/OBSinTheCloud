@@ -75,6 +75,14 @@ Section "Screen"
 EndSection
 ```
 
+Übrigens bringt Linux ein Tool mit, um die "Modeline" auszurechnen.  
+`cvt 1920 1080 60`  gibt uns z.B. Folgendes aus:  
+```
+# 1920x1080 59.96 Hz (CVT 2.07M9) hsync: 67.16 kHz; pclk: 173.00 MHz
+Modeline "1920x1080_60.00"  173.00  1920 2048 2248 2576  1080 1083 1088 1120 -hsync +vsync
+
+```
+
 OBS macht aber mit zwei Monitoren (Studio-Ansicht und Multiview-Ansicht) mehr Spaß.
 Es gibt verschiedene Möglichkeiten. Ich definiere eine Dummy-Grafikkarte und zwei Dummy-Monitore in der xorg.conf und in der "Section Screen" gebe ich die Auflösung für zwei Full-HD Bildschirme nebeneinander, also zweimal 1920 Pixel Breite und 1080 Pixel Höhe an.  
 Dazu habe ich hier paar Infos gefunden: https://wiki.archlinux.org/title/Multihead  
@@ -392,3 +400,6 @@ wget https://download.teamviewer.com/download/linux/teamviewer_amd64.deb
 sudo apt install ./teamviewer_amd64.deb -y  
 
 ```
+
+## oder Spice nutzen ? ##
+https://linux-blog.anracom.com/2017/07/13/kvmqemu-mit-qxl-hohe-aufloesungen-und-virtuelle-monitore-im-gastsystem-definieren-und-nutzen-ii/
