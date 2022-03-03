@@ -248,7 +248,7 @@ After=display-manager.service
 
 [Service]
 Type=simple
-ExecStart=x11vnc -xkb -noxrecord -noxfixes -noxdamage -display :0 -auth /var/run/lightdm/root/:0
+ExecStart=x11vnc -xkb -noxrecord -noxfixes -noxdamage -forever -loop -display :0 -auth /var/run/lightdm/root/:0
 ExecStop=/usr/bin/killall x11vnc
 Restart=on-failure
 Restart-sec=2
@@ -280,6 +280,16 @@ apt install obs-studio
 ### noch paar Infos am Rande: ###
 x11vnc Passwort ändern: `x11vnc -storepasswd`  
 x11vnc starten:  `x11vnc -auth /run/user/root/gdm/Xauthority -usepw -forever -repeat -display :0`  
+Im Terminal in einer aktiven Sitzung zwischen Graphischen System (GUI) und Textbasiertem System wechseln:  
+```
+sudo systemctl isolate multi-user.target  
+# OR #  
+sudo systemctl isolate graphical.target  
+```
+Ermitteln, welche Zieleinheit standardmäßig verwendet wird:  
+`systemctl get-default`   
+So änderst du das "Startziel" in den GUI-Modus:  
+`sudo systemctl set-default graphical.target`  
 
 ---  
 
