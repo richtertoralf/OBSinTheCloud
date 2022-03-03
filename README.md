@@ -418,6 +418,7 @@ sudo apt install ./google-chrome-stable_current_amd64.deb -y
 ```
 
 ## TeamViewer installieren ##
+In den Gratis-Varianten einiger VNC-Viewern wird kein Ton übertraqgen, was für uns aber wichtig ist. Deshalb nutze ich aktuell TeamViewer.  
 ```
 wget https://download.teamviewer.com/download/linux/teamviewer_amd64.deb  
 sudo apt install ./teamviewer_amd64.deb -y  
