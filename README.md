@@ -242,12 +242,16 @@ Das ist der Root-Zugriff
 und einfügen:
 ```
 [Unit]
-Description=Start x11vnc
-After=multi-user.target
+Description="x11vnc"
+Requires=display-manager.service
+After=display-manager.service
 
 [Service]
 Type=simple
 ExecStart=x11vnc -xkb -noxrecord -noxfixes -noxdamage -display :0 -auth /var/run/lightdm/root/:0
+ExecStop=/usr/bin/killall x11vnc
+Restart=on-failure
+Restart-sec=2
 
 [Install]
 WantedBy=multi-user.target
