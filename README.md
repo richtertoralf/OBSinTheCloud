@@ -193,6 +193,9 @@ apt install gnome-session gnome-terminal
 apt install nautilus  
 apt install x11vnc  
 ```
+Falls ein VNC-Server auf einem Ubuntu-Server installiert werden soll, muss lt. ubuntuusers zusätzlich folgendes Paket installiert werden:  
+xfonts-base. `apt install xfonts-base`  
+
 **Variante 1 / Gnome im Ubuntu-Style**  
 Dabei werden z.B. Firefox, LibreOffice und Thunderbird mitinstalliert.
 ```
