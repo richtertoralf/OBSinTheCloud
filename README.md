@@ -297,6 +297,15 @@ So änderst du das "Startziel" in den GUI-Modus:
 ---  
 
 ##  jetzt zurück zu Ubuntu ##
+>Achtung: Stand 2022 nutzt Ubuntu 20.04 und 22.04 Wayland als "Displaytreiber". Das passt nicht zu X11vnc. Deshalb muss derzeit Wayland abgeschaltet werden.  
+
+```
+nano /etc/gdm3/custom.conf   
+#   und in der Zeile
+#   #WaylandEnable=false
+#   die Auskommentierung entfernen
+```
+
 Melde dich dann wieder per SSH als **root** an.  
 root@ubuntu-32gb-nbg1-1:~# `ps wwwwaux | grep auth`  
 Ausgabe:  
